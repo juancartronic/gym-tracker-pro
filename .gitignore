@@ -1,0 +1,48 @@
+# Entorno
+.env
+.env.local
+.env.*.local
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+build/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Base de datos local
+*.sqlite
+*.sqlite3
+*.db
+
+# Respaldos
+*.bak
+*.backup
+*~
+
+# OS
+Thumbs.db
+.DS_Store
