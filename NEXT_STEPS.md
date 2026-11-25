@@ -26,7 +26,7 @@ gym-tracker-pro/
 ├── 📄 .env.example ....................... Template de configuración
 ├── 📄 GITHUB_SETUP.md .................... Guía para subir a GitHub ⭐
 │
-├── 🌐 gym_tracker.pro.html .............. Aplicación principal (¡ABRE ESTO!)
+├── 🌐 index.html .............. Aplicación principal (¡ABRE ESTO!)
 │
 ├── 🖥️ Servidores
 │   ├── server-express.js ............... Node.js/Express
@@ -72,7 +72,7 @@ git push -u origin main
 
 ```bash
 # Opción A: Abrir directamente (sin servidor)
-# Abre: c:\Users\Juanka\Desktop\gym-tracker-pro\gym_tracker.pro.html
+# Abre: c:\Users\Juanka\Desktop\gym-tracker-pro\index.html
 
 # Opción B: Con servidor (Node.js)
 cd c:/Users/Juanka/Desktop/gym-tracker-pro
@@ -158,7 +158,7 @@ https://github.com/juanka/gym-tracker-pro
 
 | Archivo | Propósito |
 |---------|----------|
-| **gym_tracker.pro.html** | ⭐ **ABRE ESTO EN EL NAVEGADOR** |
+| **index.html** | ⭐ **ABRE ESTO EN EL NAVEGADOR** |
 | README.md | Descripción del proyecto |
 | GITHUB_SETUP.md | ⭐ **LEE ESTO PARA SUBIR A GITHUB** |
 | .gitignore | Archivos que Git no debe trackear |

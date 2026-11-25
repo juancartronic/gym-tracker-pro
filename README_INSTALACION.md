@@ -2,7 +2,7 @@
 
 ## 📋 Contenidos
 
-- `gym_tracker.pro.html` - Aplicación principal (funciona en navegador)
+- `index.html` - Aplicación principal (funciona en navegador)
 - `server-express.js` - Servidor Node.js/Express para sincronización
 - `server-flask.py` - Servidor Python/Flask para sincronización
 - `GYM_TRACKER_PRO_v2_GUIA.md` - Guía completa de características
@@ -15,7 +15,7 @@
 - Navegador moderno (Chrome, Firefox, Safari, Edge)
 
 ### Instalación
-1. Descarga `gym_tracker.pro.html`
+1. Descarga `index.html`
 2. Abre el archivo en tu navegador
 3. ¡Listo! Funciona completamente offline
 
@@ -75,7 +75,7 @@ Deberías ver:
 
 ### Configurar en la app (Gym Tracker)
 
-1. Abre `gym_tracker.pro.html`
+1. Abre `index.html`
 2. Ve a la pestaña "🔄 Nube"
 3. Ingresa:
    - **URL del webhook**: `http://localhost:3000/api/entrenamientos`
@@ -139,7 +139,7 @@ Deberías ver:
 
 ### Configurar en la app (Gym Tracker)
 
-1. Abre `gym_tracker.pro.html`
+1. Abre `index.html`
 2. Ve a la pestaña "🔄 Nube"
 3. Ingresa:
    - **URL del webhook**: `http://localhost:5000/api/entrenamientos`

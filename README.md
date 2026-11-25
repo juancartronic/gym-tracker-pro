@@ -44,7 +44,7 @@ Una aplicación web completa para registrar entrenamientos, recibir recomendacio
 ### Opción 1: Sin servidor (Local)
 ```bash
 # Solo necesitas un navegador
-# Abre gym_tracker.pro.html en tu navegador
+# Abre index.html en tu navegador
 # ¡Listo! Funciona completamente offline
 ```
 
@@ -88,7 +88,7 @@ python server-flask.py
 
 ```
 gym-tracker-pro/
-├── gym_tracker.pro.html          # Aplicación principal
+├── index.html          # Aplicación principal
 ├── server-express.js              # Servidor Node.js
 ├── server-flask.py                # Servidor Python
 ├── package.json                   # Dependencias Node.js
@@ -218,13 +218,13 @@ gcloud app deploy
 ## 📱 Instalar como App
 
 ### Android (Chrome)
-1. Abre `gym_tracker.pro.html` en Chrome
+1. Abre `index.html` en Chrome
 2. Toca ⋮ (menú) → "Instalar app"
 3. Elige un nombre
 4. ¡Listo!
 
 ### iPhone (Safari)
-1. Abre `gym_tracker.pro.html` en Safari
+1. Abre `index.html` en Safari
 2. Toca Compartir → "Añadir a Inicio"
 3. Elige un nombre
 4. ¡Listo!
@@ -318,7 +318,7 @@ A: No, se guardan localmente en tu navegador. Solo se envían a un servidor si c
 A: Sí, gracias al Service Worker. Se sincroniza cuando vuelves a conectar.
 
 **P: ¿Puedo usar solo la app sin servidor?**
-A: Sí, abre `gym_tracker.pro.html` en tu navegador. Todo funciona localmente.
+A: Sí, abre `index.html` en tu navegador. Todo funciona localmente.
 
 **P: ¿Cómo cambio el token de autenticación?**
 A: Edita `.env` y cambia `AUTH_TOKEN=` a tu valor deseado.

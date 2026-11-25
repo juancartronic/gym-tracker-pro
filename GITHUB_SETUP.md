@@ -105,7 +105,7 @@ gym-tracker-pro/
 ├── LICENSE
 ├── .gitignore
 ├── .env.example
-├── gym_tracker.pro.html           ← Tu app principal
+├── index.html           ← Tu app principal
 ├── server-express.js              ← Servidor Node.js
 ├── server-flask.py                ← Servidor Python
 ├── package.json
