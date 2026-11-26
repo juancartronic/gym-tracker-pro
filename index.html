@@ -508,7 +508,7 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
  </div>
 </header>
 
-<div class="app-topbar" style="transition: transform 0.22s, opacity 0.22s; transform: none; opacity: 1;">
+<div class="app-topbar" style="transition: transform 0.22s, opacity 0.22s; transform: translateY(-120%); opacity: 0;">
  <button type="button" class="back-btn" id="btnVolverInicio" aria-label="Volver al inicio" title="Volver al inicio">←</button>
  <span class="app-topbar-title">💪 GYM TRACKER <span>PRO</span></span>
 </div>
@@ -526,17 +526,17 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
 
 <!-- INICIO -->
 <section class="page" id="inicio">
- <div id="tocaEntrenar" style="margin-top:4px"><div class="warn-bar" style="background:#1b2740;border-color:var(--border);color:#c8d1e0">Han pasado 1 día desde tu último entreno. Toca Push (empuje). <a href="#" data-ir="entrenamiento" style="color:var(--primary);text-decoration:underline">Entrenar</a></div></div>
+ <div id="tocaEntrenar" style="margin-top:4px"><div class="warn-bar" style="background:#1b2740;border-color:var(--border);color:#c8d1e0">Ya has entrenado hoy. Buen trabajo 💪 <a href="#" data-ir="entrenamiento" style="color:var(--primary);text-decoration:underline">Entrenar</a></div></div>
  <h2 class="section-title">Tu resumen de entrenamiento</h2>
  <div class="kpis">
-  <div class="kpi"><div class="k">Volumen esta semana</div><div class="v"><span id="kpiVolumen">20.467</span> <small>kg</small></div><div class="d up" id="kpiVolumenTend">▲ +249 % vs semana pasada</div></div>
-  <div class="kpi"><div class="k">Series esta semana</div><div class="v"><span id="kpiSeries">53</span></div><div class="d up" id="kpiSeriesTend">▲ +71 % vs semana pasada</div></div>
-  <div class="kpi"><div class="k">Entrenamientos</div><div class="v"><span id="statEntrenos">41</span></div><div class="d muted-note">Total histórico</div></div>
+  <div class="kpi"><div class="k">Volumen esta semana</div><div class="v"><span id="kpiVolumen">8940</span> <small>kg</small></div><div class="d down" id="kpiVolumenTend">▼ -56 % vs semana pasada</div></div>
+  <div class="kpi"><div class="k">Series esta semana</div><div class="v"><span id="kpiSeries">18</span></div><div class="d down" id="kpiSeriesTend">▼ -66 % vs semana pasada</div></div>
+  <div class="kpi"><div class="k">Entrenamientos</div><div class="v"><span id="statEntrenos">47</span></div><div class="d muted-note">Total histórico</div></div>
   <div class="kpi"><div class="k">Récords personales</div><div class="v"><span id="statPR">22</span></div><div class="d muted-note">Marcas por ejercicio</div></div>
  </div>
  <div class="card heat-card">
-  <div class="heat-head"><h3 class="section-title">Constancia · últimas 6 semanas</h3><span class="chip on" id="rachaChip">🔥 4 semanas seguidas</span></div>
-  <div class="heat" id="heatmap"><i class="" title="2026-10-11"></i><i class="" title="2026-10-12"></i><i class="" title="2026-10-13"></i><i class="" title="2026-10-14"></i><i class="" title="2026-10-15"></i><i class="" title="2026-10-16"></i><i class="" title="2026-10-17"></i><i class="" title="2026-10-18"></i><i class="" title="2026-10-19"></i><i class="" title="2026-10-20"></i><i class="" title="2026-10-21"></i><i class="" title="2026-10-22"></i><i class="" title="2026-10-23"></i><i class="" title="2026-10-24"></i><i class="" title="2026-10-25"></i><i class="" title="2026-10-26"></i><i class="" title="2026-10-27"></i><i class="" title="2026-10-28"></i><i class="" title="2026-10-29"></i><i class="l2" title="2026-10-30 · 6720 kg"></i><i class="" title="2026-10-31"></i><i class="" title="2026-11-01"></i><i class="" title="2026-11-02"></i><i class="" title="2026-11-03"></i><i class="l2" title="2026-11-04 · 4580 kg"></i><i class="" title="2026-11-05"></i><i class="l2" title="2026-11-06 · 6720 kg"></i><i class="" title="2026-11-07"></i><i class="" title="2026-11-08"></i><i class="l1" title="2026-11-09 · 2078 kg"></i><i class="" title="2026-11-10"></i><i class="l1" title="2026-11-11 · 1392 kg"></i><i class="l1" title="2026-11-12 · 2400 kg"></i><i class="" title="2026-11-13"></i><i class="" title="2026-11-14"></i><i class="" title="2026-11-15"></i><i class="" title="2026-11-16"></i><i class="l2" title="2026-11-17 · 7452 kg"></i><i class="" title="2026-11-18"></i><i class="l3" title="2026-11-19 · 12.735 kg"></i><i class="l1" title="2026-11-20 · 280 kg"></i><i class=" today" title="2026-11-21"></i></div>
+  <div class="heat-head"><h3 class="section-title">Constancia · últimas 6 semanas</h3><span class="chip on" id="rachaChip">🔥 5 semanas seguidas</span></div>
+  <div class="heat" id="heatmap"><i class="" title="2026-10-14"></i><i class="" title="2026-10-15"></i><i class="" title="2026-10-16"></i><i class="" title="2026-10-17"></i><i class="" title="2026-10-18"></i><i class="" title="2026-10-19"></i><i class="" title="2026-10-20"></i><i class="" title="2026-10-21"></i><i class="" title="2026-10-22"></i><i class="" title="2026-10-23"></i><i class="" title="2026-10-24"></i><i class="" title="2026-10-25"></i><i class="" title="2026-10-26"></i><i class="" title="2026-10-27"></i><i class="" title="2026-10-28"></i><i class="" title="2026-10-29"></i><i class="l2" title="2026-10-30 · 6720 kg"></i><i class="" title="2026-10-31"></i><i class="" title="2026-11-01"></i><i class="" title="2026-11-02"></i><i class="" title="2026-11-03"></i><i class="l2" title="2026-11-04 · 4580 kg"></i><i class="" title="2026-11-05"></i><i class="l2" title="2026-11-06 · 6720 kg"></i><i class="" title="2026-11-07"></i><i class="" title="2026-11-08"></i><i class="l1" title="2026-11-09 · 2078 kg"></i><i class="" title="2026-11-10"></i><i class="l1" title="2026-11-11 · 1392 kg"></i><i class="l1" title="2026-11-12 · 2400 kg"></i><i class="" title="2026-11-13"></i><i class="" title="2026-11-14"></i><i class="" title="2026-11-15"></i><i class="" title="2026-11-16"></i><i class="l2" title="2026-11-17 · 7452 kg"></i><i class="" title="2026-11-18"></i><i class="l3" title="2026-11-19 · 12.735 kg"></i><i class="l1" title="2026-11-20 · 280 kg"></i><i class="" title="2026-11-21"></i><i class="" title="2026-11-22"></i><i class="" title="2026-11-23"></i><i class="l3 today" title="2026-11-24 · 8940 kg"></i></div>
   <div class="legend">Menos <b style="background:#233a5c"></b><b style="background:#2f6b8a"></b><b style="background:#35d69f"></b> Más</div>
  </div>
 
@@ -544,29 +544,29 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <div class="card">
    <h3 class="section-title">Últimos entrenamientos</h3>
    <div id="ultimosEntrenos"><div class="exlist">
-  <a href="#" data-goto-entreno="78faa27b-fee8-440b-be90-31fddcd18085">
+  <a href="#" data-goto-entreno="4a308393-2814-4791-9fec-a1de32ce2436">
    <div class="ico">🏋️</div>
-   <div class="txt"><b>Curl bíceps</b><small>2026-11-20 · 2 series · 200 kg</small></div>
+   <div class="txt"><b>Leg Press</b><small>2026-11-24 · 3 series · 2520 kg</small></div>
    <div class="arrow">›</div>
   </a>
-  <a href="#" data-goto-entreno="16601899-c100-4035-b496-efb068af1470">
+  <a href="#" data-goto-entreno="89ead0b1-c942-4469-8f7b-513d2514c552">
    <div class="ico">🏋️</div>
-   <div class="txt"><b>Elevación lateral</b><small>2026-11-20 · 2 series · 80 kg</small></div>
+   <div class="txt"><b>Leg Extension</b><small>2026-11-24 · 3 series · 1290 kg</small></div>
    <div class="arrow">›</div>
   </a>
-  <a href="#" data-goto-entreno="a93e5ca0-0aa9-4108-a5c2-a995f7bb7f18">
+  <a href="#" data-goto-entreno="ce0225a4-e94f-492a-a862-34692f92d917">
    <div class="ico">🏋️</div>
-   <div class="txt"><b>Peso muerto convencional</b><small>2026-11-19 · 4 series · 1600 kg</small></div>
+   <div class="txt"><b>Seated Leg Curling</b><small>2026-11-24 · 3 series · 1230 kg</small></div>
    <div class="arrow">›</div>
   </a>
-  <a href="#" data-goto-entreno="e3113517-b1d6-4db9-8824-2cabf884eb1b">
+  <a href="#" data-goto-entreno="94858318-08f6-4db6-a00d-4381838ebcfb">
    <div class="ico">🏋️</div>
-   <div class="txt"><b>Lat Pulldown</b><small>2026-11-19 · 4 series · 1600 kg</small></div>
+   <div class="txt"><b>Abductor</b><small>2026-11-24 · 3 series · 1440 kg</small></div>
    <div class="arrow">›</div>
   </a>
-  <a href="#" data-goto-entreno="ecf1ba62-c65a-49ba-a695-540d7d80ed49">
+  <a href="#" data-goto-entreno="fd5a58b6-ba5f-453d-89b9-9eebe10ddd32">
    <div class="ico">🏋️</div>
-   <div class="txt"><b>Pulley Row</b><small>2026-11-19 · 4 series · 1051 kg</small></div>
+   <div class="txt"><b>Aductor</b><small>2026-11-24 · 3 series · 1260 kg</small></div>
    <div class="arrow">›</div>
   </a></div></div>
   </div>
@@ -575,7 +575,7 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
    <div id="objetivoInicio" class="muted">
   <div class="exlist"><a href="#" data-goto-progreso="1">
    <div class="ico">🏆</div>
-   <div class="txt"><b>Leg Press</b><small>Tu mayor peso: 60 kg · 1RM 84 kg</small></div>
+   <div class="txt"><b>Leg Press</b><small>Tu mayor peso: 70 kg · 1RM 98 kg</small></div>
    <div class="arrow">›</div>
   </a></div>
   <p class="small-text muted" style="margin-top:12px">Abre Progreso para ver tu siguiente objetivo.</p></div>
@@ -608,8 +608,8 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <div class="routine-item">
    <div class="idx">1</div>
    <div class="info">
-    <b>Press banca</b>
-    <small>Pecho · 4 series · 6-10 reps</small>
+    <b>Lat Pulldown</b>
+    <small>Espalda · 4 series · 8-12 reps</small>
    </div>
    <div class="ops">
     <button type="button" data-rutina-subir="0" aria-label="Subir">▲</button>
@@ -621,8 +621,8 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <div class="routine-item">
    <div class="idx">2</div>
    <div class="info">
-    <b>Press inclinado mancuernas</b>
-    <small>Pecho · 3 series · 8-12 reps</small>
+    <b>Pulley Row</b>
+    <small>Espalda · 3 series · 8-12 reps</small>
    </div>
    <div class="ops">
     <button type="button" data-rutina-subir="1" aria-label="Subir">▲</button>
@@ -634,8 +634,8 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <div class="routine-item">
    <div class="idx">3</div>
    <div class="info">
-    <b>Deltoid Press</b>
-    <small>Hombros · 3 series · 8-12 reps</small>
+    <b>Remo con mancuerna</b>
+    <small>Espalda · 3 series · 8-12 reps</small>
    </div>
    <div class="ops">
     <button type="button" data-rutina-subir="2" aria-label="Subir">▲</button>
@@ -647,7 +647,7 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <div class="routine-item">
    <div class="idx">4</div>
    <div class="info">
-    <b>Elevaciones laterales</b>
+    <b>Face pull</b>
     <small>Hombros · 3 series · 12-15 reps</small>
    </div>
    <div class="ops">
@@ -660,8 +660,8 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <div class="routine-item">
    <div class="idx">5</div>
    <div class="info">
-    <b>Extensión tríceps en polea</b>
-    <small>Tríceps · 3 series · 10-15 reps</small>
+    <b>Hammer Curl Biceps</b>
+    <small>Bíceps · 3 series · 10-12 reps</small>
    </div>
    <div class="ops">
     <button type="button" data-rutina-subir="4" aria-label="Subir">▲</button>
@@ -687,7 +687,7 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
  <h2 class="section-title">▶ Empezar entreno</h2>
  <p class="muted small-text">Carga de golpe la rutina planificada, con tus series y pesos sugeridos.</p>
  <div class="field" style="margin-top:14px"><label>Rutina a ejecutar</label><select id="rutinaSelectEntreno"><option value="r_push">Push (empuje)</option><option value="r_pull">Pull (tirón)</option><option value="r_pierna">Pierna</option></select></div>
- <div id="rutinaResumenEntreno" class="muted small-text"><b>Push (empuje)</b> · 5 ejercicios · 16 series · ~51 min</div>
+ <div id="rutinaResumenEntreno" class="muted small-text"><b>Pull (tirón)</b> · 5 ejercicios · 16 series · ~51 min</div>
  <div class="form-actions" style="display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px">
   <button class="btn green" id="empezarEntreno" type="button">▶ Empezar entreno</button>
   <button class="btn secondary" id="irPlanificar" type="button">✏️ Planificar rutina</button>
@@ -790,7 +790,7 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
      <option value="Elevación lateral">Elevación lateral</option><option value="Peck back">Peck back</option><option value="Press de pechó inclinado">Press de pechó inclinado</option><option value="Press de pechó plano">Press de pechó plano</option><option value="Romanian Deadlift">Romanian Deadlift</option><option value="OTRA">➕ Otro ejercicio</option>
     </select>
    </div>
-   <div id="videoTecnica" class="video-card"><div class="video-head"><h3>▶️ Técnica · Lat Pulldown</h3></div><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/7TWUcyIjNrk?rel=0&amp;playsinline=1" title="Técnica de Lat Pulldown" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe></div><div class="video-tip">💡 Pecho arriba y tira con los codos hacia las costillas, no con las manos.</div><div class="video-actions"><a class="btn secondary" href="https://www.youtube.com/watch?v=7TWUcyIjNrk" target="_blank" rel="noopener">Abrir en YouTube</a><button type="button" class="btn secondary" id="cambiarVideo">Cambiar vídeo</button><button type="button" class="btn secondary" id="grabarEnArchivo" style="grid-column:1/-1">💾 Grabar en el archivo</button></div><div class="video-meta">Si el vídeo no carga, el autor ha bloqueado la reproducción fuera de YouTube: usa «Abrir en YouTube».</div></div>
+   <div id="videoTecnica" class="video-card"><div class="video-head"><h3>▶️ Técnica · Leg Press</h3></div><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/BnacvXdaxq8?rel=0&amp;playsinline=1" title="Técnica de Leg Press" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe></div><div class="video-tip">💡 Pies a la anchura de la cadera, baja hasta que la rodilla llegue a 90° sin despegar la zona lumbar.</div><div class="video-actions"><a class="btn secondary" href="https://www.youtube.com/watch?v=BnacvXdaxq8" target="_blank" rel="noopener">Abrir en YouTube</a><button type="button" class="btn secondary" id="cambiarVideo">Cambiar vídeo</button><button type="button" class="btn secondary" id="grabarEnArchivo" style="grid-column:1/-1">💾 Grabar en el archivo</button></div><div class="video-meta">Si el vídeo no carga, el autor ha bloqueado la reproducción fuera de YouTube: usa «Abrir en YouTube».</div></div>
    <div id="avisoDescanso" hidden=""></div>
    <div class="field" id="otroGrupo" hidden="">
     <label>Nombre del ejercicio</label>
@@ -827,30 +827,23 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
    </div>
    <div id="listaSeries"><div class="set-row">
   <span class="set-number">1</span>
-  <label class="set-field"><span>Peso kg</span><input type="number" class="setPeso" inputmode="decimal" min="0" step="0.5" placeholder="kg" value="40"></label>
-  <label class="set-field"><span>Reps</span><input type="number" class="setReps" inputmode="numeric" min="0" step="1" placeholder="Reps" value="10"></label>
+  <label class="set-field"><span>Peso kg</span><input type="number" class="setPeso" inputmode="decimal" min="0" step="0.5" placeholder="kg" value="70"></label>
+  <label class="set-field"><span>Reps</span><input type="number" class="setReps" inputmode="numeric" min="0" step="1" placeholder="Reps" value="12"></label>
   <label class="set-field"><span>RIR</span><input type="number" class="setRir" inputmode="numeric" min="0" max="10" step="1" placeholder="RIR" value="3"></label>
   <button type="button" class="set-check" title="Marcar serie hecha" aria-label="Marcar serie hecha">✓</button>
   <button type="button" class="remove-set" title="Eliminar serie" aria-label="Eliminar serie">×</button>
  </div><div class="set-row">
   <span class="set-number">2</span>
-  <label class="set-field"><span>Peso kg</span><input type="number" class="setPeso" inputmode="decimal" min="0" step="0.5" placeholder="kg" value="40"></label>
-  <label class="set-field"><span>Reps</span><input type="number" class="setReps" inputmode="numeric" min="0" step="1" placeholder="Reps" value="10"></label>
+  <label class="set-field"><span>Peso kg</span><input type="number" class="setPeso" inputmode="decimal" min="0" step="0.5" placeholder="kg" value="70"></label>
+  <label class="set-field"><span>Reps</span><input type="number" class="setReps" inputmode="numeric" min="0" step="1" placeholder="Reps" value="12"></label>
   <label class="set-field"><span>RIR</span><input type="number" class="setRir" inputmode="numeric" min="0" max="10" step="1" placeholder="RIR" value="3"></label>
   <button type="button" class="set-check" title="Marcar serie hecha" aria-label="Marcar serie hecha">✓</button>
   <button type="button" class="remove-set" title="Eliminar serie" aria-label="Eliminar serie">×</button>
  </div><div class="set-row">
   <span class="set-number">3</span>
-  <label class="set-field"><span>Peso kg</span><input type="number" class="setPeso" inputmode="decimal" min="0" step="0.5" placeholder="kg" value="40"></label>
-  <label class="set-field"><span>Reps</span><input type="number" class="setReps" inputmode="numeric" min="0" step="1" placeholder="Reps" value="10"></label>
+  <label class="set-field"><span>Peso kg</span><input type="number" class="setPeso" inputmode="decimal" min="0" step="0.5" placeholder="kg" value="70"></label>
+  <label class="set-field"><span>Reps</span><input type="number" class="setReps" inputmode="numeric" min="0" step="1" placeholder="Reps" value="12"></label>
   <label class="set-field"><span>RIR</span><input type="number" class="setRir" inputmode="numeric" min="0" max="10" step="1" placeholder="RIR" value="2"></label>
-  <button type="button" class="set-check" title="Marcar serie hecha" aria-label="Marcar serie hecha">✓</button>
-  <button type="button" class="remove-set" title="Eliminar serie" aria-label="Eliminar serie">×</button>
- </div><div class="set-row">
-  <span class="set-number">4</span>
-  <label class="set-field"><span>Peso kg</span><input type="number" class="setPeso" inputmode="decimal" min="0" step="0.5" placeholder="kg" value="40"></label>
-  <label class="set-field"><span>Reps</span><input type="number" class="setReps" inputmode="numeric" min="0" step="1" placeholder="Reps" value="10"></label>
-  <label class="set-field"><span>RIR</span><input type="number" class="setRir" inputmode="numeric" min="0" max="10" step="1" placeholder="RIR" value="1"></label>
   <button type="button" class="set-check" title="Marcar serie hecha" aria-label="Marcar serie hecha">✓</button>
   <button type="button" class="remove-set" title="Eliminar serie" aria-label="Eliminar serie">×</button>
  </div></div>
@@ -863,7 +856,7 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
     <input id="notas" placeholder="Ej: buena técnica, cansancio...">
    </div>
    <div class="form-actions">
-    <button class="btn green" id="guardar">💾 Finalizar y guardar</button>
+    <button class="btn green" id="guardar">💾 Guardar entrenamiento</button>
     <button class="btn secondary" id="cancelarEdicion" hidden="">Cancelar edición</button>
    </div>
   </div>
@@ -927,8 +920,13 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
    <div id="listaPR">
   <div class="exercise-card">
    <strong>🏆 Leg Press</strong>
-   <div class="muted">Peso máximo: 60 kg</div>
-   <div class="muted">1RM estimado: 84 kg</div>
+   <div class="muted">Peso máximo: 70 kg</div>
+   <div class="muted">1RM estimado: 98 kg</div>
+  </div>
+  <div class="exercise-card">
+   <strong>🏆 Abductor</strong>
+   <div class="muted">Peso máximo: 40 kg</div>
+   <div class="muted">1RM estimado: 56 kg</div>
   </div>
   <div class="exercise-card">
    <strong>🏆 Gemelos en máquina</strong>
@@ -951,12 +949,12 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
    <div class="muted">1RM estimado: 53,3 kg</div>
   </div>
   <div class="exercise-card">
-   <strong>🏆 Aductor</strong>
-   <div class="muted">Peso máximo: 35 kg</div>
-   <div class="muted">1RM estimado: 49 kg</div>
+   <strong>🏆 Leg Extension</strong>
+   <div class="muted">Peso máximo: 37,5 kg</div>
+   <div class="muted">1RM estimado: 52,5 kg</div>
   </div>
   <div class="exercise-card">
-   <strong>🏆 Leg Extension</strong>
+   <strong>🏆 Aductor</strong>
    <div class="muted">Peso máximo: 35 kg</div>
    <div class="muted">1RM estimado: 49 kg</div>
   </div>
@@ -971,14 +969,9 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
    <div class="muted">1RM estimado: 46,7 kg</div>
   </div>
   <div class="exercise-card">
-   <strong>🏆 Abductor</strong>
-   <div class="muted">Peso máximo: 32 kg</div>
-   <div class="muted">1RM estimado: 44,8 kg</div>
-  </div>
-  <div class="exercise-card">
    <strong>🏆 Seated Leg Curling</strong>
-   <div class="muted">Peso máximo: 30 kg</div>
-   <div class="muted">1RM estimado: 42 kg</div>
+   <div class="muted">Peso máximo: 35 kg</div>
+   <div class="muted">1RM estimado: 49 kg</div>
   </div>
   <div class="exercise-card">
    <strong>🏆 Peck Black</strong>
@@ -1047,63 +1040,69 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <div id="listaMusculos" style="margin-top:20px">
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
-    <strong>Cuádriceps</strong><span class="muted">15.441 kg</span>
+    <strong>Cuádriceps</strong><span class="muted">19.251 kg</span>
    </div>
    <div class="progress-bar"><div style="width:100%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
+    <strong>Isquiotibiales</strong><span class="muted">7361 kg</span>
+   </div>
+   <div class="progress-bar"><div style="width:38.236974702612855%"></div></div>
+  </div>
+  <div style="margin-bottom:20px">
+   <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
     <strong>Espalda</strong><span class="muted">7051 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:45.66414092351532%"></div></div>
+   <div class="progress-bar"><div style="width:36.6266687444808%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
-    <strong>Isquiotibiales</strong><span class="muted">6131 kg</span>
+    <strong>Aductores</strong><span class="muted">6880 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:39.70597759212487%"></div></div>
-  </div>
-  <div style="margin-bottom:20px">
-   <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
-    <strong>Aductores</strong><span class="muted">5620 kg</span>
-   </div>
-   <div class="progress-bar"><div style="width:36.3966064374069%"></div></div>
+   <div class="progress-bar"><div style="width:35.738403199833776%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
     <strong>Pecho</strong><span class="muted">4196 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:27.17440580273298%"></div></div>
+   <div class="progress-bar"><div style="width:21.796270323619552%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
-    <strong>Gemelos</strong><span class="muted">1600 kg</span>
+    <strong>Gemelos</strong><span class="muted">2800 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:10.362023185026876%"></div></div>
+   <div class="progress-bar"><div style="width:14.544698976676537%"></div></div>
+  </div>
+  <div style="margin-bottom:20px">
+   <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
+    <strong>Glúteos</strong><span class="muted">1440 kg</span>
+   </div>
+   <div class="progress-bar"><div style="width:7.48013090229079%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
     <strong>Abdominales</strong><span class="muted">1392 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:9.014960170973382%"></div></div>
+   <div class="progress-bar"><div style="width:7.230793205547764%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
     <strong>Otros</strong><span class="muted">1232 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:7.978757852470694%"></div></div>
+   <div class="progress-bar"><div style="width:6.399667549737675%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
     <strong>Hombros</strong><span class="muted">882 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:5.7120652807460655%"></div></div>
+   <div class="progress-bar"><div style="width:4.581580177653109%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
     <strong>Bíceps</strong><span class="muted">812 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:5.25872676640114%"></div></div>
+   <div class="progress-bar"><div style="width:4.2179627032361955%"></div></div>
   </div></div>
  </div>
 </section>
@@ -1114,11 +1113,15 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <h2 class="section-title">Historial de entrenamientos</h2>
   <div class="filters">
    <input type="search" id="buscar" placeholder="Buscar ejercicio...">
-   <select id="filtroMusculo"><option value="">Todos los músculos</option><option value="Abdominales">Abdominales</option><option value="Aductores">Aductores</option><option value="Bíceps">Bíceps</option><option value="Cuádriceps">Cuádriceps</option><option value="Espalda">Espalda</option><option value="Gemelos">Gemelos</option><option value="Hombros">Hombros</option><option value="Isquiotibiales">Isquiotibiales</option><option value="Otros">Otros</option><option value="Pecho">Pecho</option></select>
+   <select id="filtroMusculo"><option value="">Todos los músculos</option><option value="Abdominales">Abdominales</option><option value="Aductores">Aductores</option><option value="Bíceps">Bíceps</option><option value="Cuádriceps">Cuádriceps</option><option value="Espalda">Espalda</option><option value="Gemelos">Gemelos</option><option value="Glúteos">Glúteos</option><option value="Hombros">Hombros</option><option value="Isquiotibiales">Isquiotibiales</option><option value="Otros">Otros</option><option value="Pecho">Pecho</option></select>
    <input type="date" id="filtroFecha">
   </div>
   <h3 class="section-title" style="margin-top:6px">Sesiones recientes</h3>
   <div id="listaSesionesRecientes"><div class="sess-card">
+   <h3>Sesión</h3>
+   <div class="sub">2026-11-24 · 6 ejercicios · 18 series · 8940 kg</div>
+   <div class="cmp"><span class="n">Leg Press · 3×2520 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Leg Extension · 3×1290 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Seated Leg Curling · 3×1230 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Abductor · 3×1440 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Aductor · 3×1260 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Gemelos en máquina · 3×1200 kg</span><span class="delta eq">primera vez</span></div>
+  </div><div class="sess-card">
    <h3>Sesión</h3>
    <div class="sub">2026-11-20 · 2 ejercicios · 4 series · 280 kg</div>
    <div class="cmp"><span class="n">Curl bíceps · 2×200 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Elevación lateral · 2×80 kg</span><span class="delta eq">primera vez</span></div>
@@ -1165,6 +1168,72 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
      </tr>
     </thead>
     <tbody id="tablaHistorial">
+  <tr>
+   <td data-label="Fecha">2026-11-24</td>
+   <td data-label="Ejercicio"><strong>Leg Press</strong></td>
+   <td data-label="Músculo">Cuádriceps</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">2520 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="4a308393-2814-4791-9fec-a1de32ce2436">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="4a308393-2814-4791-9fec-a1de32ce2436">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-24</td>
+   <td data-label="Ejercicio"><strong>Leg Extension</strong></td>
+   <td data-label="Músculo">Cuádriceps</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">1290 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="89ead0b1-c942-4469-8f7b-513d2514c552">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="89ead0b1-c942-4469-8f7b-513d2514c552">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-24</td>
+   <td data-label="Ejercicio"><strong>Seated Leg Curling</strong></td>
+   <td data-label="Músculo">Isquiotibiales</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">1230 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="ce0225a4-e94f-492a-a862-34692f92d917">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="ce0225a4-e94f-492a-a862-34692f92d917">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-24</td>
+   <td data-label="Ejercicio"><strong>Abductor</strong></td>
+   <td data-label="Músculo">Glúteos</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">1440 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="94858318-08f6-4db6-a00d-4381838ebcfb">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="94858318-08f6-4db6-a00d-4381838ebcfb">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-24</td>
+   <td data-label="Ejercicio"><strong>Aductor</strong></td>
+   <td data-label="Músculo">Aductores</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">1260 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="fd5a58b6-ba5f-453d-89b9-9eebe10ddd32">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="fd5a58b6-ba5f-453d-89b9-9eebe10ddd32">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-24</td>
+   <td data-label="Ejercicio"><strong>Gemelos en máquina</strong></td>
+   <td data-label="Músculo">Gemelos</td>
+   <td data-label="Series">3 series<br><span class="muted">10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">1200 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="8742c4f8-cbde-4a93-93cd-0f56b76d977a">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="8742c4f8-cbde-4a93-93cd-0f56b76d977a">🗑️ Borrar</button>
+   </td>
+  </tr>
   <tr>
    <td data-label="Fecha">2026-11-20</td>
    <td data-label="Ejercicio"><strong>Curl bíceps</strong></td>
@@ -1752,8 +1821,8 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
 <div class="floating-rest" role="region" aria-label="Temporizador de descanso">
  <button type="button" class="float-toggle" id="floatToggle" aria-label="Desplegar ajustes del descanso" aria-expanded="false">▲</button>
  <div class="float-main">
-  <div class="float-heading"><div class="float-label">⏱ Descanso</div><div class="timer-display float-time" id="timer" role="timer" aria-live="off">01:30</div></div>
-  <div class="timer-progress float-progress" aria-hidden="true"><div id="timerProgress" style="width: 100%;"></div></div>
+  <div class="float-heading"><div class="float-label">⏱ Descanso</div><div class="timer-display float-time finished" id="timer" role="timer" aria-live="off">00:00</div></div>
+  <div class="timer-progress float-progress" aria-hidden="true"><div id="timerProgress" style="width: 0%;"></div></div>
  </div>
  <div class="float-settings" aria-label="Seleccionar duración del descanso">
   <span class="float-label">Tiempo</span>
@@ -1781,23 +1850,8 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
 
 const STORAGE_KEY = 'gymTrackerPro_v1';
 
-const datosIniciales = [
- {fecha:'2026-10-30',maquina:'Leg Press',peso:55,repeticiones:10,series:4},
- {fecha:'2026-10-30',maquina:'Press Horizontal',peso:40,repeticiones:10,series:4},
- {fecha:'2026-10-30',maquina:'Seated Leg Curling',peso:25,repeticiones:10,series:4},
- {fecha:'2026-10-30',maquina:'Leg Extension',peso:25,repeticiones:10,series:4},
- {fecha:'2026-10-30',maquina:'Aductor',peso:25,repeticiones:10,series:4},
- {fecha:'2026-11-04',maquina:'Peck Black',peso:25,repeticiones:10,series:4},
- {fecha:'2026-11-04',maquina:'Lat Pulldown',peso:35,repeticiones:10,series:4},
- {fecha:'2026-11-04',maquina:'Pulley Row',peso:35,repeticiones:10,series:4},
- {fecha:'2026-11-04',maquina:'Deltoid Press',peso:20,repeticiones:8,series:3},
- {fecha:'2026-11-04',maquina:'Hammer Curl Biceps',peso:10,repeticiones:10,series:3},
- {fecha:'2026-11-06',maquina:'Leg Press',peso:60,repeticiones:10,series:4},
- {fecha:'2026-11-06',maquina:'Seated Leg Curling',peso:30,repeticiones:10,series:4},
- {fecha:'2026-11-06',maquina:'Leg Extension',peso:30,repeticiones:10,series:4},
- {fecha:'2026-11-06',maquina:'Aductor',peso:30,repeticiones:10,series:4},
- {fecha:'2026-11-06',maquina:'Romanian Deadlift',peso:24,repeticiones:10,series:3}
-];
+const datosIniciales = [];
+// Versión publicada sin entrenamientos de ejemplo: la app arranca vacía.
 
 const grupos = {
  'Leg Press':'Cuádriceps',
@@ -1973,7 +2027,7 @@ irAlMenu();
 // Si está vacío, la app ofrece una búsqueda de shorts para ese ejercicio
 // y permite pegar el enlace del vídeo elegido (se guarda en el navegador).
 const VIDEOS = {
- 'Leg Press': {id:'voXz7k7PXIA', tip:'Pies a la anchura de la cadera, baja hasta que la rodilla llegue a 90° sin despegar la zona lumbar.'},
+ 'Leg Press': {id:'BnacvXdaxq8', tip:'Pies a la anchura de la cadera, baja hasta que la rodilla llegue a 90° sin despegar la zona lumbar.'},
  'Leg Extension': {id:'SguKyjZ6y9Q', tip:'Sube sin lanzar el peso y aguanta un segundo arriba apretando el cuádriceps.'},
  'Seated Leg Curling': {id:'XG2XVE_VcTM', tip:'Ajusta el respaldo y tira con los isquios sin levantar la cadera del asiento.'},
  'Lying Leg Curl': {id:'NxPR7G_YNHI', tip:'Cadera pegada al banco; no arquees la espalda al subir el peso.'},
