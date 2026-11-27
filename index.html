@@ -174,8 +174,11 @@ tr:hover td{background:#ffffff05}
 .ejercicio-picker .ep-txt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ejercicio-picker .ep-txt.ep-vacio{color:var(--muted);font-weight:600}
 .ejercicio-picker .ep-ico{font-size:19px;flex:0 0 auto}
+.ejercicio-picker .ep-flecha{flex:0 0 auto;font-size:15px;color:var(--muted);transition:transform .2s}
+.ejercicio-picker .ep-sel[aria-expanded="true"] .ep-flecha{transform:rotate(180deg)}
 .ep-panel{margin-top:12px;border:1px solid var(--border);border-radius:14px;background:var(--panel);
  padding:12px;display:grid;gap:14px;max-height:60vh;overflow-y:auto}
+.ep-panel[hidden],.rp-panel[hidden]{display:none !important}
 .ep-grupo{display:grid;gap:7px}
 .ep-grupo-titulo{font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;
  color:var(--muted);padding:6px 2px;border-bottom:1px solid var(--border)}
@@ -807,8 +810,8 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
     <div class="ejercicio-picker">
      <button type="button" class="ep-sel" id="epAbrir" aria-expanded="false" aria-controls="epPanel">
       <span class="ep-ico" aria-hidden="true">🏋️</span>
-      <span class="ep-txt ep-vacio" id="epActual">Selecciona ejercicio</span>
-      <span class="ep-ico" aria-hidden="true">▼</span>
+      <span class="ep-txt ep-vacio" id="epActual">Seleccionar ejercicio</span>
+      <span class="ep-flecha" aria-hidden="true">▼</span>
      </button>
      <div id="epPanel" class="ep-panel" hidden=""></div>
      <select id="maquina" hidden="" aria-hidden="true" tabindex="-1">
@@ -2741,9 +2744,9 @@ function epPintar(){
    </button>`).join('')}
   </div>`).join('');
  const sel=$('maquina');
- const opt=[...sel.options].find(o=>(o.value||o.textContent)===actual);
+ const opt=[...sel.options].find(o=>o.value&&o.value===actual);
  const txt=$('epActual');
- txt.textContent=opt?opt.textContent:'Selecciona ejercicio';
+ txt.textContent=opt?opt.textContent:'Seleccionar ejercicio';
  txt.classList.toggle('ep-vacio',!opt);
 }
 function escaparHtml(t){
@@ -2765,9 +2768,11 @@ function epElegir(valor){
  const opt=[...sel.options].find(o=>(o.value||o.textContent)===valor);
  if(!opt)return;
  sel.value=opt.value;
- sel.dispatchEvent(new Event('change',{bubbles:true}));
  epAbrir(false);
  epPintar();
+ sel.dispatchEvent(new Event('change',{bubbles:true}));
+ const btn=$('epAbrir');
+ if(btn)btn.focus({preventScroll:true});
 }
 (function(){
  const btn=$('epAbrir'), panel=$('epPanel');
@@ -2778,6 +2783,9 @@ function epElegir(valor){
   if(it){epElegir(it.dataset.valor);return;}
  });
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)epAbrir(false);});
+ document.addEventListener('click',e=>{
+  if(!panel.hidden&&!e.target.closest('.ejercicio-picker'))epAbrir(false);
+ });
  // Si el valor cambia por código (editar, recomendar, etc.), refrescar la etiqueta.
  $('maquina').addEventListener('change',()=>{epPintar();});
  epPintar();
