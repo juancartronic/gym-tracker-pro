@@ -165,6 +165,24 @@ tr:hover td{background:#ffffff05}
 .timer-progress>div{height:100%;width:100%;background:linear-gradient(90deg,var(--green),var(--primary));transition:width .25s linear}
 .timer .timerPreset{min-width:72px}
 @keyframes timerPulse{to{transform:scale(1.035);filter:brightness(1.3)}}
+/* Mapa de fatiga muscular */
+.fatiga-wrap{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center}
+.fatiga-svg{width:100%;max-width:230px;margin:0 auto;display:block}
+.fatiga-svg .fm{stroke:#101522;stroke-width:1.5;transition:fill .3s ease}
+.fatiga-leyenda{display:grid;gap:10px}
+.fatiga-item{display:flex;align-items:center;gap:10px;font-size:15px}
+.fatiga-dot{width:18px;height:18px;border-radius:5px;flex:0 0 auto;border:1px solid #ffffff22}
+.fatiga-item b{font-size:15px;font-weight:800}
+.fatiga-item span{color:var(--muted);font-size:13px}
+.fatiga-barras{display:grid;gap:12px;margin-top:22px}
+.fatiga-barra-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:6px;font-size:15px}
+.fatiga-estado{font-size:12px;font-weight:800;padding:2px 9px;border-radius:999px;letter-spacing:.04em}
+.fatiga-estado.f{background:#ff647c33;color:#ff8b9c}
+.fatiga-estado.r{background:#ffba6333;color:#ffc98a}
+.fatiga-estado.v{background:#31d69a33;color:#6ee7bd}
+.fatiga-estado.e{background:#5aa9ff33;color:#8cc4ff}
+@media(max-width:600px){.fatiga-wrap{grid-template-columns:1fr;gap:14px}.fatiga-svg{max-width:200px}}
+
 .timer-controls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
 .progress-bar{
   height:9px;background:#101a2b;border-radius:20px;overflow:hidden;margin-top:12px
@@ -338,11 +356,12 @@ html body .floating-rest.collapsed .float-settings{display:none !important}
  table td.empty::before{display:none}
 }
 html body .floating-rest{display:none}
-html body.en-entrenamiento .floating-rest{display:flex}
+html body.en-entrenamiento .floating-rest{display:none}
+html body.en-entrenamiento .floating-rest.visible{display:flex}
 html body.en-entrenamiento .floating-rest.collapsed .float-settings{display:none !important}
 @media(max-width:700px){
  /* Compacta por defecto: solo cronómetro y botones; la flecha despliega los tiempos */
- html body.en-entrenamiento .floating-rest{display:grid;padding:12px 10px 10px;gap:6px 8px}
+ html body.en-entrenamiento .floating-rest.visible{display:grid;padding:12px 10px 10px;gap:6px 8px}
  html body.en-entrenamiento .floating-rest .float-settings{display:none !important}
  html body.en-entrenamiento .floating-rest.expanded .float-settings{display:flex !important;grid-column:1 / -1;grid-row:2}
  html body.en-entrenamiento .floating-rest .float-actions{grid-column:2;grid-row:1}
@@ -508,7 +527,7 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
  </div>
 </header>
 
-<div class="app-topbar" style="transition: transform 0.22s, opacity 0.22s; transform: translateY(-120%); opacity: 0;">
+<div class="app-topbar" style="transition: transform 0.22s, opacity 0.22s; transform: none; opacity: 1;">
  <button type="button" class="back-btn" id="btnVolverInicio" aria-label="Volver al inicio" title="Volver al inicio">←</button>
  <span class="app-topbar-title">💪 GYM TRACKER <span>PRO</span></span>
 </div>
@@ -524,32 +543,61 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
  <button class="nav-btn" data-page="sincronizacion"><span class="nav-ico" aria-hidden="true">🔄</span><span class="nav-txt">Nube</span></button>
 </nav>
 
-
+<!-- INICIO -->
 <section class="page" id="inicio">
- <div id="tocaEntrenar" style="margin-top:4px"><div class="warn-bar" style="background:#1b2740;border-color:var(--border);color:#c8d1e0">Ya has entrenado hoy. Buen trabajo 💪 <a href="#" data-ir="entrenamiento" style="color:var(--primary);text-decoration:underline">Entrenar</a></div></div>
+ <div id="tocaEntrenar" style="margin-top:4px"><div class="warn-bar" style="background:#1b2740;border-color:var(--border);color:#c8d1e0">Han pasado 1 día desde tu último entreno. Toca Push (empuje). <a href="#" data-ir="entrenamiento" style="color:var(--primary);text-decoration:underline">Entrenar</a></div></div>
  <h2 class="section-title">Tu resumen de entrenamiento</h2>
  <div class="kpis">
-  <div class="kpi"><div class="k">Volumen esta semana</div><div class="v"><span id="kpiVolumen">8940</span> <small>kg</small></div><div class="d down" id="kpiVolumenTend">▼ -56 % vs semana pasada</div></div>
-  <div class="kpi"><div class="k">Series esta semana</div><div class="v"><span id="kpiSeries">18</span></div><div class="d down" id="kpiSeriesTend">▼ -66 % vs semana pasada</div></div>
-  <div class="kpi"><div class="k">Entrenamientos</div><div class="v"><span id="statEntrenos">47</span></div><div class="d muted-note">Total histórico</div></div>
+  <div class="kpi"><div class="k">Volumen esta semana</div><div class="v"><span id="kpiVolumen">20.467</span> <small>kg</small></div><div class="d up" id="kpiVolumenTend">▲ +249 % vs semana pasada</div></div>
+  <div class="kpi"><div class="k">Series esta semana</div><div class="v"><span id="kpiSeries">53</span></div><div class="d up" id="kpiSeriesTend">▲ +71 % vs semana pasada</div></div>
+  <div class="kpi"><div class="k">Entrenamientos</div><div class="v"><span id="statEntrenos">41</span></div><div class="d muted-note">Total histórico</div></div>
   <div class="kpi"><div class="k">Récords personales</div><div class="v"><span id="statPR">22</span></div><div class="d muted-note">Marcas por ejercicio</div></div>
  </div>
  <div class="card heat-card">
-  <div class="heat-head"><h3 class="section-title">Constancia · últimas 6 semanas</h3><span class="chip on" id="rachaChip">🔥 5 semanas seguidas</span></div>
-  <div class="heat" id="heatmap"></div>
+  <div class="heat-head"><h3 class="section-title">Constancia · últimas 6 semanas</h3><span class="chip on" id="rachaChip">🔥 4 semanas seguidas</span></div>
+  <div class="heat" id="heatmap"><i class="" title="2026-10-11"></i><i class="" title="2026-10-12"></i><i class="" title="2026-10-13"></i><i class="" title="2026-10-14"></i><i class="" title="2026-10-15"></i><i class="" title="2026-10-16"></i><i class="" title="2026-10-17"></i><i class="" title="2026-10-18"></i><i class="" title="2026-10-19"></i><i class="" title="2026-10-20"></i><i class="" title="2026-10-21"></i><i class="" title="2026-10-22"></i><i class="" title="2026-10-23"></i><i class="" title="2026-10-24"></i><i class="" title="2026-10-25"></i><i class="" title="2026-10-26"></i><i class="" title="2026-10-27"></i><i class="" title="2026-10-28"></i><i class="" title="2026-10-29"></i><i class="l2" title="2026-10-30 · 6720 kg"></i><i class="" title="2026-10-31"></i><i class="" title="2026-11-01"></i><i class="" title="2026-11-02"></i><i class="" title="2026-11-03"></i><i class="l2" title="2026-11-04 · 4580 kg"></i><i class="" title="2026-11-05"></i><i class="l2" title="2026-11-06 · 6720 kg"></i><i class="" title="2026-11-07"></i><i class="" title="2026-11-08"></i><i class="l1" title="2026-11-09 · 2078 kg"></i><i class="" title="2026-11-10"></i><i class="l1" title="2026-11-11 · 1392 kg"></i><i class="l1" title="2026-11-12 · 2400 kg"></i><i class="" title="2026-11-13"></i><i class="" title="2026-11-14"></i><i class="" title="2026-11-15"></i><i class="" title="2026-11-16"></i><i class="l2" title="2026-11-17 · 7452 kg"></i><i class="" title="2026-11-18"></i><i class="l3" title="2026-11-19 · 12.735 kg"></i><i class="l1" title="2026-11-20 · 280 kg"></i><i class=" today" title="2026-11-21"></i></div>
   <div class="legend">Menos <b style="background:#233a5c"></b><b style="background:#2f6b8a"></b><b style="background:#35d69f"></b> Más</div>
  </div>
 
  <div class="grid two">
   <div class="card">
    <h3 class="section-title">Últimos entrenamientos</h3>
-   <div id="ultimosEntrenos"></div>
+   <div id="ultimosEntrenos"><div class="exlist">
+  <a href="#" data-goto-entreno="78faa27b-fee8-440b-be90-31fddcd18085">
+   <div class="ico">🏋️</div>
+   <div class="txt"><b>Curl bíceps</b><small>2026-11-20 · 2 series · 200 kg</small></div>
+   <div class="arrow">›</div>
+  </a>
+  <a href="#" data-goto-entreno="16601899-c100-4035-b496-efb068af1470">
+   <div class="ico">🏋️</div>
+   <div class="txt"><b>Elevación lateral</b><small>2026-11-20 · 2 series · 80 kg</small></div>
+   <div class="arrow">›</div>
+  </a>
+  <a href="#" data-goto-entreno="a93e5ca0-0aa9-4108-a5c2-a995f7bb7f18">
+   <div class="ico">🏋️</div>
+   <div class="txt"><b>Peso muerto convencional</b><small>2026-11-19 · 4 series · 1600 kg</small></div>
+   <div class="arrow">›</div>
+  </a>
+  <a href="#" data-goto-entreno="e3113517-b1d6-4db9-8824-2cabf884eb1b">
+   <div class="ico">🏋️</div>
+   <div class="txt"><b>Lat Pulldown</b><small>2026-11-19 · 4 series · 1600 kg</small></div>
+   <div class="arrow">›</div>
+  </a>
+  <a href="#" data-goto-entreno="ecf1ba62-c65a-49ba-a695-540d7d80ed49">
+   <div class="ico">🏋️</div>
+   <div class="txt"><b>Pulley Row</b><small>2026-11-19 · 4 series · 1051 kg</small></div>
+   <div class="arrow">›</div>
+  </a></div></div>
   </div>
   <div class="card">
    <h3 class="section-title">Tu próximo objetivo</h3>
    <div id="objetivoInicio" class="muted">
-   Todavía no hay datos. Registra tu primer entrenamiento.
-  </div>
+  <div class="exlist"><a href="#" data-goto-progreso="1">
+   <div class="ico">🏆</div>
+   <div class="txt"><b>Leg Press</b><small>Tu mayor peso: 60 kg · 1RM 84 kg</small></div>
+   <div class="arrow">›</div>
+  </a></div>
+  <p class="small-text muted" style="margin-top:12px">Abre Progreso para ver tu siguiente objetivo.</p></div>
   </div>
   <div class="card">
    <h3 class="section-title">Evolución de volumen</h3>
@@ -562,7 +610,7 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
  </div>
 </section>
 
-
+<!-- RUTINA / SESIÓN -->
 <section class="page" id="rutina">
  <div class="card">
   <h2 class="section-title">Plan de entrenamiento</h2>
@@ -579,8 +627,8 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <div class="routine-item">
    <div class="idx">1</div>
    <div class="info">
-    <b>Lat Pulldown</b>
-    <small>Espalda · 4 series · 8-12 reps</small>
+    <b>Press banca</b>
+    <small>Pecho · 4 series · 6-10 reps</small>
    </div>
    <div class="ops">
     <button type="button" data-rutina-subir="0" aria-label="Subir">▲</button>
@@ -592,8 +640,8 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <div class="routine-item">
    <div class="idx">2</div>
    <div class="info">
-    <b>Pulley Row</b>
-    <small>Espalda · 3 series · 8-12 reps</small>
+    <b>Press inclinado mancuernas</b>
+    <small>Pecho · 3 series · 8-12 reps</small>
    </div>
    <div class="ops">
     <button type="button" data-rutina-subir="1" aria-label="Subir">▲</button>
@@ -605,8 +653,8 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <div class="routine-item">
    <div class="idx">3</div>
    <div class="info">
-    <b>Remo con mancuerna</b>
-    <small>Espalda · 3 series · 8-12 reps</small>
+    <b>Deltoid Press</b>
+    <small>Hombros · 3 series · 8-12 reps</small>
    </div>
    <div class="ops">
     <button type="button" data-rutina-subir="2" aria-label="Subir">▲</button>
@@ -618,7 +666,7 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <div class="routine-item">
    <div class="idx">4</div>
    <div class="info">
-    <b>Face pull</b>
+    <b>Elevaciones laterales</b>
     <small>Hombros · 3 series · 12-15 reps</small>
    </div>
    <div class="ops">
@@ -631,8 +679,8 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <div class="routine-item">
    <div class="idx">5</div>
    <div class="info">
-    <b>Hammer Curl Biceps</b>
-    <small>Bíceps · 3 series · 10-12 reps</small>
+    <b>Extensión tríceps en polea</b>
+    <small>Tríceps · 3 series · 10-15 reps</small>
    </div>
    <div class="ops">
     <button type="button" data-rutina-subir="4" aria-label="Subir">▲</button>
@@ -652,13 +700,13 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
  </div>
 </section>
 
-
+<!-- ENTRENAMIENTO -->
 <section class="page active" id="entrenamiento">
 <div class="card" id="iniciarEntrenoCard">
  <h2 class="section-title">▶ Empezar entreno</h2>
  <p class="muted small-text">Carga de golpe la rutina planificada, con tus series y pesos sugeridos.</p>
  <div class="field" style="margin-top:14px"><label>Rutina a ejecutar</label><select id="rutinaSelectEntreno"><option value="r_push">Push (empuje)</option><option value="r_pull">Pull (tirón)</option><option value="r_pierna">Pierna</option></select></div>
- <div id="rutinaResumenEntreno" class="muted small-text"><b>Pull (tirón)</b> · 5 ejercicios · 16 series · ~51 min</div>
+ <div id="rutinaResumenEntreno" class="muted small-text"><b>Push (empuje)</b> · 5 ejercicios · 16 series · ~51 min</div>
  <div class="form-actions" style="display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px">
   <button class="btn green" id="empezarEntreno" type="button">▶ Empezar entreno</button>
   <button class="btn secondary" id="irPlanificar" type="button">✏️ Planificar rutina</button>
@@ -761,7 +809,7 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
      <option value="Elevación lateral">Elevación lateral</option><option value="Peck back">Peck back</option><option value="Press de pechó inclinado">Press de pechó inclinado</option><option value="Press de pechó plano">Press de pechó plano</option><option value="Romanian Deadlift">Romanian Deadlift</option><option value="OTRA">➕ Otro ejercicio</option>
     </select>
    </div>
-   <div id="videoTecnica" class="video-card"><div class="video-head"><h3>▶️ Técnica · Leg Press</h3></div><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/BnacvXdaxq8?rel=0&amp;playsinline=1" title="Técnica de Leg Press" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe></div><div class="video-tip">💡 Pies a la anchura de la cadera, baja hasta que la rodilla llegue a 90° sin despegar la zona lumbar.</div><div class="video-actions"><a class="btn secondary" href="https://www.youtube.com/watch?v=BnacvXdaxq8" target="_blank" rel="noopener">Abrir en YouTube</a><button type="button" class="btn secondary" id="cambiarVideo">Cambiar vídeo</button><button type="button" class="btn secondary" id="grabarEnArchivo" style="grid-column:1/-1">💾 Grabar en el archivo</button></div><div class="video-meta">Si el vídeo no carga, el autor ha bloqueado la reproducción fuera de YouTube: usa «Abrir en YouTube».</div></div>
+   <div id="videoTecnica" class="video-card"><div class="video-head"><h3>▶️ Técnica · Lat Pulldown</h3></div><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/7TWUcyIjNrk?rel=0&amp;playsinline=1" title="Técnica de Lat Pulldown" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe></div><div class="video-tip">💡 Pecho arriba y tira con los codos hacia las costillas, no con las manos.</div><div class="video-actions"><a class="btn secondary" href="https://www.youtube.com/watch?v=7TWUcyIjNrk" target="_blank" rel="noopener">Abrir en YouTube</a><button type="button" class="btn secondary" id="cambiarVideo">Cambiar vídeo</button><button type="button" class="btn secondary" id="grabarEnArchivo" style="grid-column:1/-1">💾 Grabar en el archivo</button></div><div class="video-meta">Si el vídeo no carga, el autor ha bloqueado la reproducción fuera de YouTube: usa «Abrir en YouTube».</div></div>
    <div id="avisoDescanso" hidden=""></div>
    <div class="field" id="otroGrupo" hidden="">
     <label>Nombre del ejercicio</label>
@@ -798,23 +846,30 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
    </div>
    <div id="listaSeries"><div class="set-row">
   <span class="set-number">1</span>
-  <label class="set-field"><span>Peso kg</span><input type="number" class="setPeso" inputmode="decimal" min="0" step="0.5" placeholder="kg" value="70"></label>
-  <label class="set-field"><span>Reps</span><input type="number" class="setReps" inputmode="numeric" min="0" step="1" placeholder="Reps" value="12"></label>
+  <label class="set-field"><span>Peso kg</span><input type="number" class="setPeso" inputmode="decimal" min="0" step="0.5" placeholder="kg" value="40"></label>
+  <label class="set-field"><span>Reps</span><input type="number" class="setReps" inputmode="numeric" min="0" step="1" placeholder="Reps" value="10"></label>
   <label class="set-field"><span>RIR</span><input type="number" class="setRir" inputmode="numeric" min="0" max="10" step="1" placeholder="RIR" value="3"></label>
   <button type="button" class="set-check" title="Marcar serie hecha" aria-label="Marcar serie hecha">✓</button>
   <button type="button" class="remove-set" title="Eliminar serie" aria-label="Eliminar serie">×</button>
  </div><div class="set-row">
   <span class="set-number">2</span>
-  <label class="set-field"><span>Peso kg</span><input type="number" class="setPeso" inputmode="decimal" min="0" step="0.5" placeholder="kg" value="70"></label>
-  <label class="set-field"><span>Reps</span><input type="number" class="setReps" inputmode="numeric" min="0" step="1" placeholder="Reps" value="12"></label>
+  <label class="set-field"><span>Peso kg</span><input type="number" class="setPeso" inputmode="decimal" min="0" step="0.5" placeholder="kg" value="40"></label>
+  <label class="set-field"><span>Reps</span><input type="number" class="setReps" inputmode="numeric" min="0" step="1" placeholder="Reps" value="10"></label>
   <label class="set-field"><span>RIR</span><input type="number" class="setRir" inputmode="numeric" min="0" max="10" step="1" placeholder="RIR" value="3"></label>
   <button type="button" class="set-check" title="Marcar serie hecha" aria-label="Marcar serie hecha">✓</button>
   <button type="button" class="remove-set" title="Eliminar serie" aria-label="Eliminar serie">×</button>
  </div><div class="set-row">
   <span class="set-number">3</span>
-  <label class="set-field"><span>Peso kg</span><input type="number" class="setPeso" inputmode="decimal" min="0" step="0.5" placeholder="kg" value="70"></label>
-  <label class="set-field"><span>Reps</span><input type="number" class="setReps" inputmode="numeric" min="0" step="1" placeholder="Reps" value="12"></label>
+  <label class="set-field"><span>Peso kg</span><input type="number" class="setPeso" inputmode="decimal" min="0" step="0.5" placeholder="kg" value="40"></label>
+  <label class="set-field"><span>Reps</span><input type="number" class="setReps" inputmode="numeric" min="0" step="1" placeholder="Reps" value="10"></label>
   <label class="set-field"><span>RIR</span><input type="number" class="setRir" inputmode="numeric" min="0" max="10" step="1" placeholder="RIR" value="2"></label>
+  <button type="button" class="set-check" title="Marcar serie hecha" aria-label="Marcar serie hecha">✓</button>
+  <button type="button" class="remove-set" title="Eliminar serie" aria-label="Eliminar serie">×</button>
+ </div><div class="set-row">
+  <span class="set-number">4</span>
+  <label class="set-field"><span>Peso kg</span><input type="number" class="setPeso" inputmode="decimal" min="0" step="0.5" placeholder="kg" value="40"></label>
+  <label class="set-field"><span>Reps</span><input type="number" class="setReps" inputmode="numeric" min="0" step="1" placeholder="Reps" value="10"></label>
+  <label class="set-field"><span>RIR</span><input type="number" class="setRir" inputmode="numeric" min="0" max="10" step="1" placeholder="RIR" value="1"></label>
   <button type="button" class="set-check" title="Marcar serie hecha" aria-label="Marcar serie hecha">✓</button>
   <button type="button" class="remove-set" title="Eliminar serie" aria-label="Eliminar serie">×</button>
  </div></div>
@@ -827,7 +882,7 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
     <input id="notas" placeholder="Ej: buena técnica, cansancio...">
    </div>
    <div class="form-actions">
-    <button class="btn green" id="guardar">💾 Guardar entrenamiento</button>
+    <button class="btn green" id="guardar">💾 Finalizar y guardar</button>
     <button class="btn secondary" id="cancelarEdicion" hidden="">Cancelar edición</button>
    </div>
   </div>
@@ -870,7 +925,7 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
  </section>
 
 
-
+<!-- PROGRESO -->
 <section class="page" id="progreso">
  <div class="card">
   <h2 class="section-title">Evolución de fuerza</h2>
@@ -889,13 +944,10 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <div class="card">
    <h3 class="section-title">Récords personales</h3>
    <div id="listaPR">
-   <p class="muted">Aún no hay récords. Se calculan al guardar entrenamientos.</p>
-  </div>
-  </div>
   <div class="exercise-card">
-   <strong>🏆 Abductor</strong>
-   <div class="muted">Peso máximo: 40 kg</div>
-   <div class="muted">1RM estimado: 56 kg</div>
+   <strong>🏆 Leg Press</strong>
+   <div class="muted">Peso máximo: 60 kg</div>
+   <div class="muted">1RM estimado: 84 kg</div>
   </div>
   <div class="exercise-card">
    <strong>🏆 Gemelos en máquina</strong>
@@ -918,12 +970,12 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
    <div class="muted">1RM estimado: 53,3 kg</div>
   </div>
   <div class="exercise-card">
-   <strong>🏆 Leg Extension</strong>
-   <div class="muted">Peso máximo: 37,5 kg</div>
-   <div class="muted">1RM estimado: 52,5 kg</div>
+   <strong>🏆 Aductor</strong>
+   <div class="muted">Peso máximo: 35 kg</div>
+   <div class="muted">1RM estimado: 49 kg</div>
   </div>
   <div class="exercise-card">
-   <strong>🏆 Aductor</strong>
+   <strong>🏆 Leg Extension</strong>
    <div class="muted">Peso máximo: 35 kg</div>
    <div class="muted">1RM estimado: 49 kg</div>
   </div>
@@ -938,9 +990,14 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
    <div class="muted">1RM estimado: 46,7 kg</div>
   </div>
   <div class="exercise-card">
+   <strong>🏆 Abductor</strong>
+   <div class="muted">Peso máximo: 32 kg</div>
+   <div class="muted">1RM estimado: 44,8 kg</div>
+  </div>
+  <div class="exercise-card">
    <strong>🏆 Seated Leg Curling</strong>
-   <div class="muted">Peso máximo: 35 kg</div>
-   <div class="muted">1RM estimado: 49 kg</div>
+   <div class="muted">Peso máximo: 30 kg</div>
+   <div class="muted">1RM estimado: 42 kg</div>
   </div>
   <div class="exercise-card">
    <strong>🏆 Peck Black</strong>
@@ -1001,92 +1058,123 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
  </div>
 </section>
 
-
+<!-- MUSCULOS -->
 <section class="page" id="musculos">
  <div class="card">
   <h2 class="section-title">Control de grupos musculares</h2>
   <p class="muted small-text">Volumen acumulado por grupo muscular. El volumen es una referencia de trabajo, no una medida directa de crecimiento.</p>
+  <div id="mapaFatiga" style="margin-top:24px"></div>
   <div id="listaMusculos" style="margin-top:20px">
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
-    <strong>Cuádriceps</strong><span class="muted">19.251 kg</span>
+    <strong>Cuádriceps</strong><span class="muted">15.441 kg</span>
    </div>
    <div class="progress-bar"><div style="width:100%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
-    <strong>Isquiotibiales</strong><span class="muted">7361 kg</span>
-   </div>
-   <div class="progress-bar"><div style="width:38.236974702612855%"></div></div>
-  </div>
-  <div style="margin-bottom:20px">
-   <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
     <strong>Espalda</strong><span class="muted">7051 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:36.6266687444808%"></div></div>
+   <div class="progress-bar"><div style="width:45.66414092351532%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
-    <strong>Aductores</strong><span class="muted">6880 kg</span>
+    <strong>Isquiotibiales</strong><span class="muted">6131 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:35.738403199833776%"></div></div>
+   <div class="progress-bar"><div style="width:39.70597759212487%"></div></div>
+  </div>
+  <div style="margin-bottom:20px">
+   <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
+    <strong>Aductores</strong><span class="muted">5620 kg</span>
+   </div>
+   <div class="progress-bar"><div style="width:36.3966064374069%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
     <strong>Pecho</strong><span class="muted">4196 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:21.796270323619552%"></div></div>
+   <div class="progress-bar"><div style="width:27.17440580273298%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
-    <strong>Gemelos</strong><span class="muted">2800 kg</span>
+    <strong>Gemelos</strong><span class="muted">1600 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:14.544698976676537%"></div></div>
-  </div>
-  <div style="margin-bottom:20px">
-   <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
-    <strong>Glúteos</strong><span class="muted">1440 kg</span>
-   </div>
-   <div class="progress-bar"><div style="width:7.48013090229079%"></div></div>
+   <div class="progress-bar"><div style="width:10.362023185026876%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
     <strong>Abdominales</strong><span class="muted">1392 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:7.230793205547764%"></div></div>
+   <div class="progress-bar"><div style="width:9.014960170973382%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
     <strong>Otros</strong><span class="muted">1232 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:6.399667549737675%"></div></div>
+   <div class="progress-bar"><div style="width:7.978757852470694%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
     <strong>Hombros</strong><span class="muted">882 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:4.581580177653109%"></div></div>
+   <div class="progress-bar"><div style="width:5.7120652807460655%"></div></div>
   </div>
   <div style="margin-bottom:20px">
    <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:7px">
     <strong>Bíceps</strong><span class="muted">812 kg</span>
    </div>
-   <div class="progress-bar"><div style="width:4.2179627032361955%"></div></div>
+   <div class="progress-bar"><div style="width:5.25872676640114%"></div></div>
   </div></div>
  </div>
 </section>
 
-
+<!-- HISTORIAL -->
 <section class="page" id="historial">
  <div class="card">
   <h2 class="section-title">Historial de entrenamientos</h2>
   <div class="filters">
    <input type="search" id="buscar" placeholder="Buscar ejercicio...">
-   <select id="filtroMusculo"><option value="">Todos los músculos</option><option value="Abdominales">Abdominales</option><option value="Aductores">Aductores</option><option value="Bíceps">Bíceps</option><option value="Cuádriceps">Cuádriceps</option><option value="Espalda">Espalda</option><option value="Gemelos">Gemelos</option><option value="Glúteos">Glúteos</option><option value="Hombros">Hombros</option><option value="Isquiotibiales">Isquiotibiales</option><option value="Otros">Otros</option><option value="Pecho">Pecho</option></select>
+   <select id="filtroMusculo"><option value="">Todos los músculos</option><option value="Abdominales">Abdominales</option><option value="Aductores">Aductores</option><option value="Bíceps">Bíceps</option><option value="Cuádriceps">Cuádriceps</option><option value="Espalda">Espalda</option><option value="Gemelos">Gemelos</option><option value="Hombros">Hombros</option><option value="Isquiotibiales">Isquiotibiales</option><option value="Otros">Otros</option><option value="Pecho">Pecho</option></select>
    <input type="date" id="filtroFecha">
   </div>
   <h3 class="section-title" style="margin-top:6px">Sesiones recientes</h3>
-  <div id="listaSesionesRecientes"></div>
+  <div id="listaSesionesRecientes"><div class="sess-card">
+   <h3>Sesión</h3>
+   <div class="sub">2026-11-20 · 2 ejercicios · 4 series · 280 kg</div>
+   <div class="cmp"><span class="n">Curl bíceps · 2×200 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Elevación lateral · 2×80 kg</span><span class="delta eq">primera vez</span></div>
+  </div><div class="sess-card">
+   <h3>Sesión</h3>
+   <div class="sub">2026-11-19 · 9 ejercicios · 33 series · 12.735 kg</div>
+   <div class="cmp"><span class="n">Peso muerto convencional · 4×1600 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Lat Pulldown · 4×1600 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Pulley Row · 4×1051 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Leg Press · 4×2161 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Lying Leg Curl · 4×1051 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Leg Extension · 3×1260 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Aductor · 3×1260 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Abductor · 3×1152 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Gemelos en máquina · 4×1600 kg</span><span class="delta eq">primera vez</span></div>
+  </div><div class="sess-card">
+   <h3>Sesión</h3>
+   <div class="sub">2026-11-17 · 5 ejercicios · 16 series · 7452 kg</div>
+   <div class="cmp"><span class="n">Leg Press · 4×2880 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Seated Leg Curling · 3×1080 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Leg Extension · 3×1260 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Aductor · 3×1080 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Abductor · 3×1152 kg</span><span class="delta eq">primera vez</span></div>
+  </div><div class="sess-card">
+   <h3>Sesión</h3>
+   <div class="sub">2026-11-12 · 3 ejercicios · 8 series · 2400 kg</div>
+   <div class="cmp"><span class="n">Seated Leg Curling · 3×1080 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Leg Extension · 3×1080 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Abdominales · 2×240 kg</span><span class="delta eq">primera vez</span></div>
+  </div><div class="sess-card">
+   <h3>Sesión</h3>
+   <div class="sub">2026-11-11 · 2 ejercicios · 7 series · 1392 kg</div>
+   <div class="cmp"><span class="n">Curl bíceps · 4×312 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Aductor · 3×1080 kg</span><span class="delta eq">primera vez</span></div>
+  </div><div class="sess-card">
+   <h3>Sesión</h3>
+   <div class="sub">2026-11-09 · 5 ejercicios · 16 series · 2078 kg</div>
+   <div class="cmp"><span class="n">Press de pechó inclinado · 4×444 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Press de pechó plano · 3×632 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Peck back · 3×600 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Press militar · 3×240 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Elevación lateral · 3×162 kg</span><span class="delta eq">primera vez</span></div>
+  </div><div class="sess-card">
+   <h3>Registro importado del programa original</h3>
+   <div class="sub">2026-11-06 · 5 ejercicios · 19 series · 6720 kg</div>
+   <div class="cmp"><span class="n">Leg Press · 4×2400 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Seated Leg Curling · 4×1200 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Leg Extension · 4×1200 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Aductor · 4×1200 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Romanian Deadlift · 3×720 kg</span><span class="delta eq">primera vez</span></div>
+  </div><div class="sess-card">
+   <h3>Registro importado del programa original</h3>
+   <div class="sub">2026-11-04 · 5 ejercicios · 18 series · 4580 kg</div>
+   <div class="cmp"><span class="n">Peck Black · 4×1000 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Lat Pulldown · 4×1400 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Pulley Row · 4×1400 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Deltoid Press · 3×480 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Hammer Curl Biceps · 3×300 kg</span><span class="delta eq">primera vez</span></div>
+  </div><div class="sess-card">
+   <h3>Registro importado del programa original</h3>
+   <div class="sub">2026-10-30 · 5 ejercicios · 20 series · 6720 kg</div>
+   <div class="cmp"><span class="n">Leg Press · 4×2200 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Press Horizontal · 4×1520 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Seated Leg Curling · 4×1000 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Leg Extension · 4×1000 kg</span><span class="delta eq">primera vez</span></div><div class="cmp"><span class="n">Aductor · 4×1000 kg</span><span class="delta eq">primera vez</span></div>
+  </div></div>
   <h3 class="section-title" style="margin-top:22px">Todos los registros</h3>
   <div class="table-wrap">
    <table>
@@ -1097,13 +1185,463 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
      </tr>
     </thead>
     <tbody id="tablaHistorial">
-  </tbody>
+  <tr>
+   <td data-label="Fecha">2026-11-20</td>
+   <td data-label="Ejercicio"><strong>Curl bíceps</strong></td>
+   <td data-label="Músculo">Bíceps</td>
+   <td data-label="Series">2 series<br><span class="muted">10 / 10 reps</span></td>
+   <td data-label="Volumen">200 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="78faa27b-fee8-440b-be90-31fddcd18085">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="78faa27b-fee8-440b-be90-31fddcd18085">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-20</td>
+   <td data-label="Ejercicio"><strong>Elevación lateral</strong></td>
+   <td data-label="Músculo">Otros</td>
+   <td data-label="Series">2 series<br><span class="muted">10 / 10 reps</span></td>
+   <td data-label="Volumen">80 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="16601899-c100-4035-b496-efb068af1470">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="16601899-c100-4035-b496-efb068af1470">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-19</td>
+   <td data-label="Ejercicio"><strong>Peso muerto convencional</strong></td>
+   <td data-label="Músculo">Espalda</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">1600 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="a93e5ca0-0aa9-4108-a5c2-a995f7bb7f18">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="a93e5ca0-0aa9-4108-a5c2-a995f7bb7f18">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-19</td>
+   <td data-label="Ejercicio"><strong>Lat Pulldown</strong></td>
+   <td data-label="Músculo">Espalda</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">1600 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="e3113517-b1d6-4db9-8824-2cabf884eb1b">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="e3113517-b1d6-4db9-8824-2cabf884eb1b">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-19</td>
+   <td data-label="Ejercicio"><strong>Pulley Row</strong></td>
+   <td data-label="Músculo">Espalda</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 1 reps</span></td>
+   <td data-label="Volumen">1051 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="ecf1ba62-c65a-49ba-a695-540d7d80ed49">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="ecf1ba62-c65a-49ba-a695-540d7d80ed49">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-19</td>
+   <td data-label="Ejercicio"><strong>Leg Press</strong></td>
+   <td data-label="Músculo">Cuádriceps</td>
+   <td data-label="Series">4 series<br><span class="muted">12 / 12 / 12 / 1 reps</span></td>
+   <td data-label="Volumen">2161 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="87873142-7791-401e-b4ae-1fa2fbe8a06b">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="87873142-7791-401e-b4ae-1fa2fbe8a06b">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-19</td>
+   <td data-label="Ejercicio"><strong>Lying Leg Curl</strong></td>
+   <td data-label="Músculo">Isquiotibiales</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 1 reps</span></td>
+   <td data-label="Volumen">1051 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="7b7090b5-e3b3-4d80-9ce2-dcbfb789b477">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="7b7090b5-e3b3-4d80-9ce2-dcbfb789b477">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-19</td>
+   <td data-label="Ejercicio"><strong>Leg Extension</strong></td>
+   <td data-label="Músculo">Cuádriceps</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">1260 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="583bda1e-3134-4dc4-a984-584e775f4768">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="583bda1e-3134-4dc4-a984-584e775f4768">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-19</td>
+   <td data-label="Ejercicio"><strong>Aductor</strong></td>
+   <td data-label="Músculo">Aductores</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">1260 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="7e665124-4b84-4cc6-a3f4-9edc8e04d22b">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="7e665124-4b84-4cc6-a3f4-9edc8e04d22b">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-19</td>
+   <td data-label="Ejercicio"><strong>Abductor</strong></td>
+   <td data-label="Músculo">Abdominales</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">1152 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="1464b2b8-ce55-459d-8edc-14a492ebedd8">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="1464b2b8-ce55-459d-8edc-14a492ebedd8">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-19</td>
+   <td data-label="Ejercicio"><strong>Gemelos en máquina</strong></td>
+   <td data-label="Músculo">Gemelos</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">1600 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="ed962e28-1c62-4d38-9708-1ca5db638158">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="ed962e28-1c62-4d38-9708-1ca5db638158">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-17</td>
+   <td data-label="Ejercicio"><strong>Leg Press</strong></td>
+   <td data-label="Músculo">Cuádriceps</td>
+   <td data-label="Series">4 series<br><span class="muted">12 / 12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">2880 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="9b8590fe-f02e-4771-9a9f-9a198a2f632b">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="9b8590fe-f02e-4771-9a9f-9a198a2f632b">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-17</td>
+   <td data-label="Ejercicio"><strong>Seated Leg Curling</strong></td>
+   <td data-label="Músculo">Isquiotibiales</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">1080 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="f433be3e-423f-46ae-b9e8-fb235be49ccb">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="f433be3e-423f-46ae-b9e8-fb235be49ccb">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-17</td>
+   <td data-label="Ejercicio"><strong>Leg Extension</strong></td>
+   <td data-label="Músculo">Cuádriceps</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">1260 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="36021ad1-d1ca-44e8-a94b-f19123bd7297">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="36021ad1-d1ca-44e8-a94b-f19123bd7297">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-17</td>
+   <td data-label="Ejercicio"><strong>Aductor</strong></td>
+   <td data-label="Músculo">Aductores</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">1080 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="ad0d5dee-9a09-4660-ac8a-3108a80c076c">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="ad0d5dee-9a09-4660-ac8a-3108a80c076c">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-17</td>
+   <td data-label="Ejercicio"><strong>Abductor</strong></td>
+   <td data-label="Músculo">Otros</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">1152 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="41695bba-6a3e-4e03-99c8-2a7410867f18">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="41695bba-6a3e-4e03-99c8-2a7410867f18">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-12</td>
+   <td data-label="Ejercicio"><strong>Seated Leg Curling</strong></td>
+   <td data-label="Músculo">Isquiotibiales</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">1080 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="27335c02-502a-49ca-b6c4-66e245367410">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="27335c02-502a-49ca-b6c4-66e245367410">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-12</td>
+   <td data-label="Ejercicio"><strong>Leg Extension</strong></td>
+   <td data-label="Músculo">Cuádriceps</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">1080 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="787cae3c-b047-4c6e-b003-0cadbdbd962b">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="787cae3c-b047-4c6e-b003-0cadbdbd962b">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-12</td>
+   <td data-label="Ejercicio"><strong>Abdominales</strong></td>
+   <td data-label="Músculo">Abdominales</td>
+   <td data-label="Series">2 series<br><span class="muted">8 / 8 reps</span></td>
+   <td data-label="Volumen">240 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="2bebfebe-2070-4db1-a737-7018307cc0b7">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="2bebfebe-2070-4db1-a737-7018307cc0b7">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-11</td>
+   <td data-label="Ejercicio"><strong>Curl bíceps</strong></td>
+   <td data-label="Músculo">Bíceps</td>
+   <td data-label="Series">4 series<br><span class="muted">12 / 12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">312 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="fd48dfd8-644d-4928-b64c-060b5aa53021">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="fd48dfd8-644d-4928-b64c-060b5aa53021">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-11</td>
+   <td data-label="Ejercicio"><strong>Aductor</strong></td>
+   <td data-label="Músculo">Aductores</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 12 / 12 reps</span></td>
+   <td data-label="Volumen">1080 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="fff1110a-93dc-4ff1-bac7-8a7e34df6e05">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="fff1110a-93dc-4ff1-bac7-8a7e34df6e05">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-09</td>
+   <td data-label="Ejercicio"><strong>Press de pechó inclinado</strong></td>
+   <td data-label="Músculo">Pecho</td>
+   <td data-label="Series">4 series<br><span class="muted">12 / 12 / 10 / 6 reps</span></td>
+   <td data-label="Volumen">444 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="1794242029453">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="1794242029453">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-09</td>
+   <td data-label="Ejercicio"><strong>Press de pechó plano</strong></td>
+   <td data-label="Músculo">Pecho</td>
+   <td data-label="Series">3 series<br><span class="muted">12 / 10 / 8 reps</span></td>
+   <td data-label="Volumen">632 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="1794242622444">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="1794242622444">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-09</td>
+   <td data-label="Ejercicio"><strong>Peck back</strong></td>
+   <td data-label="Músculo">Pecho</td>
+   <td data-label="Series">3 series<br><span class="muted">10 / 10 / 8 reps</span></td>
+   <td data-label="Volumen">600 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="1794243413935">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="1794243413935">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-09</td>
+   <td data-label="Ejercicio"><strong>Press militar</strong></td>
+   <td data-label="Músculo">Hombros</td>
+   <td data-label="Series">3 series<br><span class="muted">10 / 8 / 6 reps</span></td>
+   <td data-label="Volumen">240 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="1794244143867">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="1794244143867">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-09</td>
+   <td data-label="Ejercicio"><strong>Elevación lateral</strong></td>
+   <td data-label="Músculo">Hombros</td>
+   <td data-label="Series">3 series<br><span class="muted">10 / 9 / 8 reps</span></td>
+   <td data-label="Volumen">162 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="1794244862374">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="1794244862374">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-06</td>
+   <td data-label="Ejercicio"><strong>Leg Press</strong></td>
+   <td data-label="Músculo">Cuádriceps</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">2400 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="11">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="11">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-06</td>
+   <td data-label="Ejercicio"><strong>Seated Leg Curling</strong></td>
+   <td data-label="Músculo">Isquiotibiales</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">1200 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="12">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="12">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-06</td>
+   <td data-label="Ejercicio"><strong>Leg Extension</strong></td>
+   <td data-label="Músculo">Cuádriceps</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">1200 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="13">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="13">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-06</td>
+   <td data-label="Ejercicio"><strong>Aductor</strong></td>
+   <td data-label="Músculo">Aductores</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">1200 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="14">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="14">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-06</td>
+   <td data-label="Ejercicio"><strong>Romanian Deadlift</strong></td>
+   <td data-label="Músculo">Isquiotibiales</td>
+   <td data-label="Series">3 series<br><span class="muted">10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">720 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="15">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="15">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-04</td>
+   <td data-label="Ejercicio"><strong>Peck Black</strong></td>
+   <td data-label="Músculo">Pecho</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">1000 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="6">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="6">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-04</td>
+   <td data-label="Ejercicio"><strong>Lat Pulldown</strong></td>
+   <td data-label="Músculo">Espalda</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">1400 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="7">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="7">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-04</td>
+   <td data-label="Ejercicio"><strong>Pulley Row</strong></td>
+   <td data-label="Músculo">Espalda</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">1400 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="8">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="8">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-04</td>
+   <td data-label="Ejercicio"><strong>Deltoid Press</strong></td>
+   <td data-label="Músculo">Hombros</td>
+   <td data-label="Series">3 series<br><span class="muted">8 / 8 / 8 reps</span></td>
+   <td data-label="Volumen">480 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="9">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="9">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-11-04</td>
+   <td data-label="Ejercicio"><strong>Hammer Curl Biceps</strong></td>
+   <td data-label="Músculo">Bíceps</td>
+   <td data-label="Series">3 series<br><span class="muted">10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">300 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="10">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="10">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-10-30</td>
+   <td data-label="Ejercicio"><strong>Leg Press</strong></td>
+   <td data-label="Músculo">Cuádriceps</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">2200 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="1">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="1">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-10-30</td>
+   <td data-label="Ejercicio"><strong>Press Horizontal</strong></td>
+   <td data-label="Músculo">Pecho</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 8 reps</span></td>
+   <td data-label="Volumen">1520 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="2">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="2">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-10-30</td>
+   <td data-label="Ejercicio"><strong>Seated Leg Curling</strong></td>
+   <td data-label="Músculo">Isquiotibiales</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">1000 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="3">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="3">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-10-30</td>
+   <td data-label="Ejercicio"><strong>Leg Extension</strong></td>
+   <td data-label="Músculo">Cuádriceps</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">1000 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="4">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="4">🗑️ Borrar</button>
+   </td>
+  </tr>
+  <tr>
+   <td data-label="Fecha">2026-10-30</td>
+   <td data-label="Ejercicio"><strong>Aductor</strong></td>
+   <td data-label="Músculo">Aductores</td>
+   <td data-label="Series">4 series<br><span class="muted">10 / 10 / 10 / 10 reps</span></td>
+   <td data-label="Volumen">1000 kg</td>
+   <td data-label="Acciones" class="cell-actions">
+    <button type="button" class="btn small" data-record-action="edit" data-record-id="5">✏️ Editar</button>
+    <button type="button" class="btn red small" data-record-action="delete" data-record-id="5">🗑️ Borrar</button>
+   </td>
+  </tr></tbody>
    </table>
   </div>
  </div>
 </section>
 
-
+<!-- HERRAMIENTAS -->
 <section class="page" id="herramientas">
  <div class="grid two">
   <div class="card">
@@ -1118,6 +1656,31 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
     <input type="file" id="importJSON" accept=".json,application/json">
    </div>
    <p class="muted small-text">La importación sustituye los datos actuales. Haz primero una copia de seguridad.</p>
+  </div>
+  <div class="card">
+   <h2 class="section-title">Descanso entre series</h2>
+   <p class="muted small-text">El reloj está oculto mientras entrenas y aparece solo al marcar una serie. Aquí eliges cuánto dura.</p>
+   <div class="field" style="margin-top:16px">
+    <label for="descansoSelect">Tiempo de descanso</label>
+    <select id="descansoSelect">
+     <option value="30">30 segundos</option>
+     <option value="45">45 segundos</option>
+     <option value="60">1 minuto</option>
+     <option value="75">1 min 15 s</option>
+     <option value="90">1 min 30 s</option>
+     <option value="120">2 minutos</option>
+     <option value="150">2 min 30 s</option>
+     <option value="180">3 minutos</option>
+     <option value="240">4 minutos</option>
+     <option value="300">5 minutos</option>
+    </select>
+   </div>
+   <div class="field">
+    <label for="descansoCustom">Otro tiempo (segundos)</label>
+    <input type="number" id="descansoCustom" min="5" max="3600" step="5" inputmode="numeric" placeholder="Ej.: 100">
+   </div>
+   <button class="btn green" id="guardarDescansoBtn" style="margin-top:8px">Guardar descanso</button>
+   <p class="muted small-text" id="descansoActual" style="margin-top:12px"></p>
   </div>
   <div class="card">
    <h2 class="section-title">Apariencia</h2>
@@ -1139,7 +1702,7 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
  </div>
 </section>
 
-
+<!-- SINCRONIZACIÓN -->
 <section class="page" id="sincronizacion">
  <div class="grid two">
   <div class="card">
@@ -1234,8 +1797,8 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
 <div class="floating-rest" role="region" aria-label="Temporizador de descanso">
  <button type="button" class="float-toggle" id="floatToggle" aria-label="Desplegar ajustes del descanso" aria-expanded="false">▲</button>
  <div class="float-main">
-  <div class="float-heading"><div class="float-label">⏱ Descanso</div><div class="timer-display float-time finished" id="timer" role="timer" aria-live="off">00:00</div></div>
-  <div class="timer-progress float-progress" aria-hidden="true"><div id="timerProgress" style="width: 0%;"></div></div>
+  <div class="float-heading"><div class="float-label">⏱ Descanso</div><div class="timer-display float-time" id="timer" role="timer" aria-live="off">01:30</div></div>
+  <div class="timer-progress float-progress" aria-hidden="true"><div id="timerProgress" style="width: 100%;"></div></div>
  </div>
  <div class="float-settings" aria-label="Seleccionar duración del descanso">
   <span class="float-label">Tiempo</span>
@@ -1263,8 +1826,23 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
 
 const STORAGE_KEY = 'gymTrackerPro_v1';
 
-const datosIniciales = [];
-// Versión publicada sin entrenamientos: la app arranca vacía.
+const datosIniciales = [
+ {fecha:'2026-10-30',maquina:'Leg Press',peso:55,repeticiones:10,series:4},
+ {fecha:'2026-10-30',maquina:'Press Horizontal',peso:40,repeticiones:10,series:4},
+ {fecha:'2026-10-30',maquina:'Seated Leg Curling',peso:25,repeticiones:10,series:4},
+ {fecha:'2026-10-30',maquina:'Leg Extension',peso:25,repeticiones:10,series:4},
+ {fecha:'2026-10-30',maquina:'Aductor',peso:25,repeticiones:10,series:4},
+ {fecha:'2026-11-04',maquina:'Peck Black',peso:25,repeticiones:10,series:4},
+ {fecha:'2026-11-04',maquina:'Lat Pulldown',peso:35,repeticiones:10,series:4},
+ {fecha:'2026-11-04',maquina:'Pulley Row',peso:35,repeticiones:10,series:4},
+ {fecha:'2026-11-04',maquina:'Deltoid Press',peso:20,repeticiones:8,series:3},
+ {fecha:'2026-11-04',maquina:'Hammer Curl Biceps',peso:10,repeticiones:10,series:3},
+ {fecha:'2026-11-06',maquina:'Leg Press',peso:60,repeticiones:10,series:4},
+ {fecha:'2026-11-06',maquina:'Seated Leg Curling',peso:30,repeticiones:10,series:4},
+ {fecha:'2026-11-06',maquina:'Leg Extension',peso:30,repeticiones:10,series:4},
+ {fecha:'2026-11-06',maquina:'Aductor',peso:30,repeticiones:10,series:4},
+ {fecha:'2026-11-06',maquina:'Romanian Deadlift',peso:24,repeticiones:10,series:3}
+];
 
 const grupos = {
  'Leg Press':'Cuádriceps',
@@ -1440,7 +2018,7 @@ irAlMenu();
 // Si está vacío, la app ofrece una búsqueda de shorts para ese ejercicio
 // y permite pegar el enlace del vídeo elegido (se guarda en el navegador).
 const VIDEOS = {
- 'Leg Press': {id:'BnacvXdaxq8', tip:'Pies a la anchura de la cadera, baja hasta que la rodilla llegue a 90° sin despegar la zona lumbar.'},
+ 'Leg Press': {id:'voXz7k7PXIA', tip:'Pies a la anchura de la cadera, baja hasta que la rodilla llegue a 90° sin despegar la zona lumbar.'},
  'Leg Extension': {id:'SguKyjZ6y9Q', tip:'Sube sin lanzar el peso y aguanta un segundo arriba apretando el cuádriceps.'},
  'Seated Leg Curling': {id:'XG2XVE_VcTM', tip:'Ajusta el respaldo y tira con los isquios sin levantar la cadera del asiento.'},
  'Lying Leg Curl': {id:'NxPR7G_YNHI', tip:'Cadera pegada al banco; no arquees la espalda al subir el peso.'},
@@ -1728,7 +2306,7 @@ function marcarSerieHecha(row){
    tickTimer();
   }
   const fr=document.querySelector('.floating-rest');
-  if(fr)fr.classList.remove('expanded');
+  if(fr){fr.classList.remove('expanded');fr.classList.add('visible');}
  }
 }
 
@@ -2230,6 +2808,169 @@ $('filtroFecha').onchange=actualizarTabla;
 // GRUPOS MUSCULARES
 // ======================================================
 
+// Panel de ajustes del descanso (Herramientas).
+function pintarAjustesDescanso(){
+ const sel=$('descansoSelect'), custom=$('descansoCustom'), txt=$('descansoActual');
+ if(!sel)return;
+ const v=leerDescanso();
+ const opciones=[...sel.options].map(o=>Number(o.value));
+ if(opciones.includes(v)){sel.value=String(v);custom.value='';}
+ else{sel.value='';custom.value=String(v);}
+ if(txt){
+  const m=Math.floor(v/60),sg=v%60;
+  txt.textContent='Ahora mismo: '+(m?m+' min'+(sg?' '+sg+' s':''):v+' s')+'.';
+ }
+}
+(function(){
+ const sel=$('descansoSelect'), custom=$('descansoCustom'), btn=$('guardarDescansoBtn');
+ if(!btn)return;
+ sel.onchange=()=>{if(sel.value)custom.value='';};
+ btn.onclick=()=>{
+  let v=Number(custom.value||sel.value||leerDescanso());
+  if(!isFinite(v)||v<5||v>3600){toast('Pon un tiempo entre 5 y 3600 segundos','err');return;}
+  v=Math.round(v);
+  aplicarPreset(v);
+  guardarDescanso(v);
+  pintarAjustesDescanso();
+  toast('Descanso guardado: '+v+' s ⏱');
+ };
+ pintarAjustesDescanso();
+})();
+
+// ======================================================
+// MAPA DE FATIGA MUSCULAR
+// Estado de cada grupo segun el tiempo desde su ultima sesion.
+// ======================================================
+const FATIGA_DIAS={Pecho:2,Espalda:2,Hombros:2,'Bíceps':2,'Tríceps':2,'Cuádriceps':2.5,Isquiotibiales:2.5,Aductores:1.5,Gemelos:1};
+const FATIGA_ESTADOS={
+ f:{nombre:'Fatigado',color:'#ff647c',clase:'f'},
+ r:{nombre:'En recuperación',color:'#ffba63',clase:'r'},
+ v:{nombre:'Recuperado',color:'#31d69a',clase:'v'},
+ e:{nombre:'Enflaquecido',color:'#5aa9ff',clase:'e'}
+};
+
+function diasDesde(fecha){
+ const hoy=new Date();hoy.setHours(0,0,0,0);
+ const f=new Date(fecha+'T00:00:00');
+ if(isNaN(f))return 999;
+ return Math.max(0,Math.round((hoy-f)/86400000));
+}
+
+// Devuelve {grupo:{estado,dias,horas,ultimaFecha}}
+function estadoMuscular(){
+ const ultima={};
+ datos.forEach(d=>{
+  const m=d.muscle||grupoDe(d.maquina);
+  if(!m||m==='Otros')return;
+  if(!ultima[m]||d.fecha>ultima[m])ultima[m]=d.fecha;
+ });
+ const res={};
+ Object.keys(FATIGA_DIAS).forEach(m=>{
+  const f=ultima[m];
+  if(!f){res[m]={estado:'e',dias:null,fecha:null};return;}
+  const dias=diasDesde(f);
+  const rec=FATIGA_DIAS[m];
+  let estado;
+  if(dias<=0.5)estado='f';
+  else if(dias<rec)estado='r';
+  else if(dias<rec*3)estado='v';
+  else estado='e';
+  res[m]={estado:estado,dias:dias,fecha:f};
+ });
+ return res;
+}
+
+function textoEstado(info){
+ if(!info.fecha)return 'Sin registros';
+ const d=info.dias;
+ if(d===0)return 'Hoy';
+ if(d===1)return 'Ayer';
+ return 'Hace '+d+' días';
+}
+
+// Silueta frontal simplificada: cada pieza es un grupo muscular.
+// Cuerpo base en gris azulado; las piezas encima se colorean segun el estado.
+const FATIGA_PIEZAS=[
+ // Pecho: dos pectorales
+ ['Pecho','M150 116 q-26 0 -38 6 q-6 2 -6 10 q0 18 22 22 q12 2 22 2 q10 0 22 -2 q22 -4 22 -22 q0 -8 -6 -10 q-12 -6 -38 -6 z'],
+ // Hombros
+ ['Hombros','M104 112 q-12 2 -14 14 q-2 12 6 16 q10 4 14 -6 q4 -10 2 -18 q0 -6 -8 -6 z'],
+ ['Hombros','M196 112 q12 2 14 14 q2 12 -6 16 q-10 4 -14 -6 q-4 -10 -2 -18 q0 -6 8 -6 z'],
+ // Biceps (brazo superior)
+ ['Bíceps','M100 142 q-8 0 -10 12 q-2 20 2 34 q2 8 8 6 q8 -2 8 -16 q0 -22 -2 -32 q0 -4 -6 -4 z'],
+ ['Bíceps','M200 142 q8 0 10 12 q2 20 -2 34 q-2 8 -8 6 q-8 -2 -8 -16 q0 -22 2 -32 q0 -4 6 -4 z'],
+ // Aductores (parte interna del muslo)
+ ['Aductores','M150 268 q-10 0 -14 6 q-6 26 -4 52 q1 10 8 8 q7 -2 8 -14 q2 -26 2 -52 z'],
+ ['Aductores','M150 268 q10 0 14 6 q6 26 4 52 q-1 10 -8 8 q-7 -2 -8 -14 q-2 -26 -2 -52 z'],
+ // Cuadriceps (parte externa del muslo)
+ ['Cuádriceps','M134 262 q-14 2 -16 18 q-4 34 0 62 q2 12 10 10 q8 -2 8 -16 q2 -34 2 -68 q0 -8 -4 -6 z'],
+ ['Cuádriceps','M166 262 q14 2 16 18 q4 34 0 62 q-2 12 -10 10 q-8 -2 -8 -16 q-2 -34 -2 -68 q0 -8 4 -6 z'],
+ // Gemelos
+ ['Gemelos','M136 352 q-10 2 -10 16 q0 26 4 44 q2 8 8 6 q6 -2 6 -12 q2 -26 0 -46 q-2 -10 -8 -8 z'],
+ ['Gemelos','M164 352 q10 2 10 16 q0 26 -4 44 q-2 8 -8 6 q-6 -2 -6 -12 q-2 -26 0 -46 q2 -10 8 -8 z']
+];
+
+function svgFatiga(estados){
+ const base='#2b3a55';
+ let cuerpo='';
+ cuerpo+=`<ellipse cx="150" cy="74" rx="25" ry="29" fill="${base}"/>`;
+ cuerpo+=`<rect x="140" y="99" width="20" height="12" rx="5" fill="${base}"/>`;
+ // torso
+ cuerpo+=`<path d="M118 112 q32 -12 64 0 q14 6 14 24 l0 46 q0 16 -14 20 l-4 2 q6 20 2 40 l-2 14 q-2 8 -10 8 l-32 0 q-8 0 -10 -8 l-2 -14 q-4 -20 2 -40 l-4 -2 q-14 -4 -14 -20 l0 -46 q0 -18 14 -24 z" fill="${base}"/>`;
+ // brazos
+ cuerpo+=`<path d="M112 120 q-12 4 -14 18 l-6 52 q-2 16 4 44 q2 10 8 8 q6 -2 6 -14 l-4 -40 l8 -52 q2 -12 -2 -16 z" fill="${base}"/>`;
+ cuerpo+=`<path d="M188 120 q12 4 14 18 l6 52 q2 16 -4 44 q-2 10 -8 8 q-6 -2 -6 -14 l4 -40 l-8 -52 q-2 -12 2 -16 z" fill="${base}"/>`;
+ // piernas
+ cuerpo+=`<path d="M134 258 q16 -6 16 0 q6 30 4 66 l-2 78 q0 10 -8 10 l-8 0 q-8 0 -8 -10 l-2 -78 q-2 -36 8 -66 z" fill="${base}"/>`;
+ cuerpo+=`<path d="M166 258 q-16 -6 -16 0 q-6 30 -4 66 l2 78 q0 10 8 10 l8 0 q8 0 8 -10 l2 -78 q2 -36 -8 -66 z" fill="${base}"/>`;
+
+ const piezas=FATIGA_PIEZAS.map(([m,d])=>{
+  const info=estados[m]||{estado:'e'};
+  const color=FATIGA_ESTADOS[info.estado].color;
+  return `<path class="fm" d="${d}" fill="${color}"/>`;
+ }).join('');
+
+ return `<svg class="fatiga-svg" viewBox="0 0 300 430" role="img" aria-label="Mapa de fatiga muscular">${cuerpo}${piezas}</svg>`;
+}
+
+function pintarMapaFatiga(){
+ const cont=$('mapaFatiga');
+ if(!cont)return;
+ const estados=estadoMuscular();
+ const hayDatos=datos.length>0;
+ const gruposOrden=['Pecho','Espalda','Hombros','Bíceps','Tríceps','Cuádriceps','Isquiotibiales','Aductores','Gemelos'];
+ const barras=gruposOrden.map(m=>{
+  const info=estados[m]||{estado:'e',fecha:null,dias:null};
+  const est=FATIGA_ESTADOS[info.estado];
+  const rec=FATIGA_DIAS[m];
+  let pct=0;
+  if(info.fecha){
+   const d=info.dias===null?0:info.dias;
+   pct=Math.max(4,Math.min(100,100-(d/(rec*3))*100));
+  }
+  return `<div>
+   <div class="fatiga-barra-head"><strong>${m}</strong><span class="fatiga-estado ${est.clase}">${est.nombre}</span></div>
+   <div class="progress-bar"><div style="width:${pct}%;background:${est.color}"></div></div>
+   <div class="muted small-text" style="margin-top:4px">${textoEstado(info)}</div>
+  </div>`;
+ }).join('');
+
+ const DESCRIPCION={f:'Entrenado hace menos de 1 día',r:'Aún no ha terminado de recuperarse',v:'Listo para volver a entrenar',e:'Sin estímulo desde hace tiempo'};
+ const leyenda=Object.keys(FATIGA_ESTADOS).map(k=>{
+  const e=FATIGA_ESTADOS[k];
+  return `<div class="fatiga-item"><span class="fatiga-dot" style="background:${e.color}"></span><div><b>${e.nombre}</b><div class="small-text" style="color:var(--muted)">${DESCRIPCION[k]||''}</div></div></div>`;
+ }).join('');
+
+ cont.innerHTML=`
+  <div class="card" style="margin-bottom:20px">
+   <h2 class="section-title">Mapa de fatiga</h2>
+   <p class="muted small-text">Estado de cada grupo según cuándo lo entrenaste por última vez. Es una estimación orientativa, no un diagnóstico.</p>
+   ${hayDatos?`<div class="fatiga-wrap" style="margin-top:20px">${svgFatiga(estados)}<div class="fatiga-leyenda">${leyenda}</div></div>`:'<div class="empty" style="margin-top:18px">Registra entrenamientos para ver tu mapa de fatiga.</div>'}
+  </div>
+  ${hayDatos?`<div class="card"><h2 class="section-title">Recuperación por grupo</h2><div class="fatiga-barras" style="margin-top:16px">${barras}</div></div>`:''}
+ `;
+}
+
 function actualizarMusculos(){
  const totales={};
  datos.forEach(d=>{
@@ -2431,6 +3172,22 @@ $('borrarTodo').onclick=()=>{
 let timerEndsAt=null;
 let timerTotal=90;
 
+// Ajustes de descanso: se guardan y se editan en Herramientas.
+const DESCANSO_KEY='gymTrackerPro_descanso';
+function leerDescanso(){
+ try{const v=Number(JSON.parse(localStorage.getItem(DESCANSO_KEY)||'null'));if(v>=5&&v<=3600)return v;}catch(e){}
+ return 90;
+}
+function guardarDescanso(v){
+ try{localStorage.setItem(DESCANSO_KEY,JSON.stringify(v));}catch(e){}
+}
+function relojVisible(mostrar){
+ const fr=document.querySelector('.floating-rest');
+ if(!fr)return;
+ if(mostrar){fr.classList.add('visible');}
+ else{fr.classList.remove('visible');fr.classList.remove('expanded');}
+}
+
 function mostrarTimer(){
  const safe=Math.max(0,Math.ceil(timerSeconds));
  const m=Math.floor(safe/60),s=safe%60;
@@ -2455,23 +3212,28 @@ function tickTimer(){
   if('vibrate' in navigator)navigator.vibrate([250,120,250]);
   try{const Ctx=window.AudioContext||window.webkitAudioContext;if(Ctx){const ctx=new Ctx();const osc=ctx.createOscillator();const gain=ctx.createGain();osc.connect(gain);gain.connect(ctx.destination);osc.frequency.value=880;gain.gain.value=.12;osc.start();osc.stop(ctx.currentTime+.35);}}catch(e){}
   alert('¡Descanso terminado! A por la siguiente serie 💪');
+  setTimeout(()=>{if(!timerInterval)relojVisible(false);},1200);
  }
 }
 function marcarPreset(v){
  document.querySelectorAll('.timerPreset').forEach(b=>b.classList.toggle('active',Number(b.dataset.time)===Number(v)));
 }
-function aplicarPreset(valor){
- const v=Math.max(1,Math.min(3600,Number(valor)||90));
+function aplicarPreset(valor,desdeAjustes){
+ const v=Math.max(5,Math.min(3600,Number(valor)||90));
  detenerTimer();timerSeconds=v;timerTotal=v;
  marcarPreset(v);
  mostrarTimer();
+ if(!desdeAjustes)guardarDescanso(v);
 }
 document.querySelectorAll('.timerPreset').forEach(b=>{
  b.onclick=()=>aplicarPreset(b.dataset.time);
 });
 $('timerStart').onclick=()=>{if(timerInterval||timerSeconds<=0)return;timerEndsAt=Date.now()+timerSeconds*1000;timerInterval=setInterval(tickTimer,200);tickTimer();};
 $('timerPause').onclick=()=>{if(timerEndsAt)timerSeconds=Math.max(0,Math.ceil((timerEndsAt-Date.now())/1000));detenerTimer();};
-$('timerReset').onclick=()=>{detenerTimer();timerSeconds=timerTotal=90;marcarPreset(90);mostrarTimer();};
+$('timerReset').onclick=()=>{detenerTimer();timerSeconds=timerTotal=leerDescanso();marcarPreset(timerTotal);mostrarTimer();};
+// Estado inicial: el reloj nace oculto y toma el tiempo guardado en Herramientas.
+timerSeconds=timerTotal=leerDescanso();
+marcarPreset(timerTotal);
 mostrarTimer();
 
 // ======================================================
@@ -2981,6 +3743,8 @@ function actualizarTodo(){
  actualizarMusculos();
  actualizarPR();
  actualizarGraficas();
+ if(typeof pintarAjustesDescanso==='function')pintarAjustesDescanso();
+ if(typeof pintarMapaFatiga==='function')pintarMapaFatiga();
 
  if($('ejercicioRecomendacion').value){
   mostrarRecomendacion($('ejercicioRecomendacion').value);
