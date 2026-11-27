@@ -191,10 +191,8 @@ tr:hover td{background:#ffffff05}
 
 /* Mapa de fatiga muscular */
 .fatiga-wrap{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center}
-.fatiga-svg{width:100%;max-width:290px;margin:0 auto;display:block;height:auto}
-.fatiga-svg .anat-base{fill:#2b3a55}
-.fatiga-svg .fm{stroke:#101522;stroke-width:1.1;stroke-linejoin:round;transition:fill .3s ease}
-.fatiga-svg .anat-musculos{filter:drop-shadow(0 1px 1px #0006)}
+.fatiga-svg{width:100%;max-width:230px;margin:0 auto;display:block}
+.fatiga-svg .fm{stroke:#101522;stroke-width:1.5;transition:fill .3s ease}
 .fatiga-leyenda{display:grid;gap:10px}
 .fatiga-item{display:flex;align-items:center;gap:10px;font-size:15px}
 .fatiga-dot{width:18px;height:18px;border-radius:5px;flex:0 0 auto;border:1px solid #ffffff22}
@@ -3017,54 +3015,49 @@ function textoEstado(info){
  return 'Hace '+d+' días';
 }
 
-// ======================================================
-// SILUETA ANATÓMICA FRONTAL
-// Coordenadas en viewBox 0 0 260 620. Simetría exacta respecto a x=130.
-// Cada pieza muscular se colorea según el estado del grupo.
-// ======================================================
-
-// Contorno del cuerpo (base neutra). Simetría exacta respecto a x=130.
-const ANAT_CUERPO=`
- <g class="anat-base">
-  <ellipse cx="130" cy="40" rx="20" ry="26"/>
-  <path d="M119 62 h22 v10 q0 8 -11 8 q-11 0 -11 -8 z"/>
-  <path d="M112 76 q18 6 36 0 q13 2 15 14 l2 24 q1 11 -2 21 q-3 9 -9 12 l7 46 q2 11 0 19 q-2 7 -10 7 l-38 0 q-8 0 -10 -7 q-2 -8 0 -19 l7 -46 q-6 -3 -9 -12 q-3 -10 -2 -21 l2 -24 q2 -12 15 -14 z"/>
-  <path d="M114 80 q-12 2 -14 15 l-3 28 q-1 12 -4 24 q-2 11 -2 22 q0 8 5 9 q5 1 6 -5 q1 -10 3 -19 q1 -9 3 -15 l1 -14 q1 -12 4 -20 q2 -8 3 -15 z"/>
-  <path d="M146 80 q12 2 14 15 l3 28 q1 12 4 24 q2 11 2 22 q0 8 -5 9 q-5 1 -6 -5 q-1 -10 -3 -19 q-1 -9 -3 -15 l-1 -14 q-1 -12 -4 -20 q-2 -8 -3 -15 z"/>
-  <path d="M101 165 q-6 2 -7 10 q-1 12 1 22 q1 7 4 10 q2 3 5 2 q3 -1 2 -6 q-1 -8 -2 -17 q-1 -8 -1 -13 q0 -8 -2 -8 z"/>
-  <path d="M159 165 q6 2 7 10 q1 12 -1 22 q-1 7 -4 10 q-2 3 -5 2 q-3 -1 -2 -6 q1 -8 2 -17 q1 -8 1 -13 q0 -8 2 -8 z"/>
-  <path d="M118 232 q-11 4 -12 18 l-2 30 q-1 20 -1 41 l-2 47 q-1 16 -3 30 q-1 13 0 21 q1 8 9 9 l12 1 q8 0 9 -8 l2 -23 q1 -17 3 -32 l3 -37 q2 -20 2 -37 q0 -19 -2 -36 q-2 -18 -4 -24 z"/>
-  <path d="M142 232 q11 4 12 18 l2 30 q1 20 1 41 l2 47 q1 16 3 30 q1 13 0 21 q-1 8 -9 9 l-12 1 q-8 0 -9 -8 l-2 -23 q-1 -17 -3 -32 l-3 -37 q-2 -20 -2 -37 q0 -19 2 -36 q2 -18 4 -24 z"/>
-  <path d="M108 470 q-8 1 -9 9 q-1 8 7 9 l16 1 q7 0 7 -6 l0 -9 q-10 -5 -21 -4 z"/>
-  <path d="M152 470 q8 1 9 9 q1 8 -7 9 l-16 1 q-7 0 -7 -6 l0 -9 q10 -5 21 -4 z"/>
- </g>`;
-
-const ANAT_PIEZAS=[
- ['Pecho','M127 86 q-12 1 -20 5 q-5 3 -5 8 q0 9 8 12 q8 3 14 2 q3 0 3 -3 l0 -20 q0 -4 0 -4 z'],
- ['Pecho','M133 86 q12 1 20 5 q5 3 5 8 q0 9 -8 12 q-8 3 -14 2 q-3 0 -3 -3 l0 -20 q0 -4 0 -4 z'],
- ['Hombros','M108 82 q-10 2 -12 10 q-2 9 2 15 q3 5 8 5 q4 0 4 -5 l0 -21 q0 -4 -2 -4 z'],
- ['Hombros','M152 82 q10 2 12 10 q2 9 -2 15 q-3 5 -8 5 q-4 0 -4 -5 l0 -21 q0 -4 2 -4 z'],
- ['Bíceps','M113 132 q-6 1 -7 10 q-1 12 1 19 q1 6 4 8 q2 2 3 -2 q1 -7 1 -13 l0 -18 q0 -4 -2 -4 z'],
- ['Bíceps','M147 132 q6 1 7 10 q1 12 -1 19 q-1 6 -4 8 q-2 2 -3 -2 q-1 -7 -1 -13 l0 -18 q0 -4 2 -4 z'],
- ['Aductores','M127 250 q-4 2 -5 10 q-1 15 0 32 q0 13 1 19 q1 4 2 0 q1 -11 1 -28 l0 -33 q0 0 1 0 z'],
- ['Aductores','M133 250 q4 2 5 10 q1 15 0 32 q0 13 -1 19 q-1 4 -2 0 q-1 -11 -1 -28 l0 -33 q0 0 -1 0 z'],
- ['Cuádriceps','M112 246 q-9 4 -11 16 q-2 19 -1 37 q1 16 3 25 q2 7 7 6 q5 -1 5 -9 q0 -16 -1 -33 l-1 -26 q0 -12 -1 -16 z'],
- ['Cuádriceps','M148 246 q9 4 11 16 q2 19 1 37 q-1 16 -3 25 q-2 7 -7 6 q-5 -1 -5 -9 q0 -16 1 -33 l1 -26 q0 -12 1 -16 z'],
- ['Gemelos','M114 356 q-7 2 -8 14 q-1 16 1 28 q1 8 5 10 q4 2 5 -5 q0 -13 0 -26 l0 -19 q0 -3 -3 -2 z'],
- ['Gemelos','M146 356 q7 2 8 14 q1 16 -1 28 q-1 8 -5 10 q-4 2 -5 -5 q0 -13 0 -26 l0 -19 q0 -3 3 -2 z']
+// Silueta frontal simplificada: cada pieza es un grupo muscular.
+// Cuerpo base en gris azulado; las piezas encima se colorean segun el estado.
+const FATIGA_PIEZAS=[
+ // Pecho: dos pectorales
+ ['Pecho','M150 116 q-26 0 -38 6 q-6 2 -6 10 q0 18 22 22 q12 2 22 2 q10 0 22 -2 q22 -4 22 -22 q0 -8 -6 -10 q-12 -6 -38 -6 z'],
+ // Hombros
+ ['Hombros','M104 112 q-12 2 -14 14 q-2 12 6 16 q10 4 14 -6 q4 -10 2 -18 q0 -6 -8 -6 z'],
+ ['Hombros','M196 112 q12 2 14 14 q2 12 -6 16 q-10 4 -14 -6 q-4 -10 -2 -18 q0 -6 8 -6 z'],
+ // Biceps (brazo superior)
+ ['Bíceps','M100 142 q-8 0 -10 12 q-2 20 2 34 q2 8 8 6 q8 -2 8 -16 q0 -22 -2 -32 q0 -4 -6 -4 z'],
+ ['Bíceps','M200 142 q8 0 10 12 q2 20 -2 34 q-2 8 -8 6 q-8 -2 -8 -16 q0 -22 2 -32 q0 -4 6 -4 z'],
+ // Aductores (parte interna del muslo)
+ ['Aductores','M150 268 q-10 0 -14 6 q-6 26 -4 52 q1 10 8 8 q7 -2 8 -14 q2 -26 2 -52 z'],
+ ['Aductores','M150 268 q10 0 14 6 q6 26 4 52 q-1 10 -8 8 q-7 -2 -8 -14 q-2 -26 -2 -52 z'],
+ // Cuadriceps (parte externa del muslo)
+ ['Cuádriceps','M134 262 q-14 2 -16 18 q-4 34 0 62 q2 12 10 10 q8 -2 8 -16 q2 -34 2 -68 q0 -8 -4 -6 z'],
+ ['Cuádriceps','M166 262 q14 2 16 18 q4 34 0 62 q-2 12 -10 10 q-8 -2 -8 -16 q-2 -34 -2 -68 q0 -8 4 -6 z'],
+ // Gemelos
+ ['Gemelos','M136 352 q-10 2 -10 16 q0 26 4 44 q2 8 8 6 q6 -2 6 -12 q2 -26 0 -46 q-2 -10 -8 -8 z'],
+ ['Gemelos','M164 352 q10 2 10 16 q0 26 -4 44 q-2 8 -8 6 q-6 -2 -6 -12 q-2 -26 0 -46 q2 -10 8 -8 z']
 ];
 
 function svgFatiga(estados){
- const piezas=ANAT_PIEZAS.map(([m,d])=>{
+ const base='#2b3a55';
+ let cuerpo='';
+ cuerpo+=`<ellipse cx="150" cy="74" rx="25" ry="29" fill="${base}"/>`;
+ cuerpo+=`<rect x="140" y="99" width="20" height="12" rx="5" fill="${base}"/>`;
+ // torso
+ cuerpo+=`<path d="M118 112 q32 -12 64 0 q14 6 14 24 l0 46 q0 16 -14 20 l-4 2 q6 20 2 40 l-2 14 q-2 8 -10 8 l-32 0 q-8 0 -10 -8 l-2 -14 q-4 -20 2 -40 l-4 -2 q-14 -4 -14 -20 l0 -46 q0 -18 14 -24 z" fill="${base}"/>`;
+ // brazos
+ cuerpo+=`<path d="M112 120 q-12 4 -14 18 l-6 52 q-2 16 4 44 q2 10 8 8 q6 -2 6 -14 l-4 -40 l8 -52 q2 -12 -2 -16 z" fill="${base}"/>`;
+ cuerpo+=`<path d="M188 120 q12 4 14 18 l6 52 q2 16 -4 44 q-2 10 -8 8 q-6 -2 -6 -14 l4 -40 l-8 -52 q-2 -12 2 -16 z" fill="${base}"/>`;
+ // piernas
+ cuerpo+=`<path d="M134 258 q16 -6 16 0 q6 30 4 66 l-2 78 q0 10 -8 10 l-8 0 q-8 0 -8 -10 l-2 -78 q-2 -36 8 -66 z" fill="${base}"/>`;
+ cuerpo+=`<path d="M166 258 q-16 -6 -16 0 q-6 30 -4 66 l2 78 q0 10 8 10 l8 0 q8 0 8 -10 l2 -78 q2 -36 -8 -66 z" fill="${base}"/>`;
+
+ const piezas=FATIGA_PIEZAS.map(([m,d])=>{
   const info=estados[m]||{estado:'e'};
   const color=FATIGA_ESTADOS[info.estado].color;
   return `<path class="fm" d="${d}" fill="${color}"/>`;
  }).join('');
 
- return `<svg class="fatiga-svg" viewBox="0 0 260 500" role="img" aria-label="Mapa de fatiga muscular">
-  <g class="anat-fill">${ANAT_CUERPO}</g>
-  <g class="anat-musculos">${piezas}</g>
- </svg>`;
+ return `<svg class="fatiga-svg" viewBox="0 0 300 430" role="img" aria-label="Mapa de fatiga muscular">${cuerpo}${piezas}</svg>`;
 }
 
 function pintarMapaFatiga(){
