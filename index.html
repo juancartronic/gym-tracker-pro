@@ -186,6 +186,26 @@ tr:hover td{background:#ffffff05}
 .ep-item[aria-current="true"]{background:var(--primary);color:#fff}
 .ep-item .ep-otro{color:var(--orange)}
 .ep-cab{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+/* Selector de rutina plegable */
+.rutina-picker{display:grid;gap:10px}
+.rutina-picker .rp-sel{display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+ min-height:58px;padding:12px 14px;border-radius:12px;border:1px solid var(--border);
+ background:var(--panel2);color:var(--text);font-size:17px;font-weight:700;cursor:pointer}
+.rutina-picker .rp-sel:hover{border-color:var(--primary)}
+.rutina-picker .rp-txt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rutina-picker .rp-txt.rp-vacio{color:var(--muted);font-weight:600}
+.rutina-picker .rp-ico{font-size:19px;flex:0 0 auto}
+.rutina-picker .rp-flecha{flex:0 0 auto;font-size:15px;color:var(--muted);transition:transform .2s}
+.rutina-picker .rp-sel[aria-expanded="true"] .rp-flecha{transform:rotate(180deg)}
+.rp-panel{margin-top:4px;border:1px solid var(--border);border-radius:14px;background:var(--panel);
+ padding:10px;display:grid;gap:8px;max-height:50vh;overflow-y:auto}
+.rp-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;min-height:54px;
+ padding:12px 14px;border-radius:10px;border:1px solid transparent;background:var(--panel2);
+ color:var(--text);font-size:16px;font-weight:650;cursor:pointer}
+.rp-item:hover,.rp-item:focus-visible{border-color:var(--primary);outline:none}
+.rp-item[aria-current="true"]{background:var(--primary);color:#fff}
+.rp-item .rp-check{margin-left:auto;font-weight:900}
+@media(max-width:420px){.rutina-picker .rp-sel{font-size:16px;padding:11px 12px}.rp-item{font-size:15px;min-height:50px}}
 .ep-cab strong{font-size:16px}
 @media(max-width:420px){.ejercicio-picker .ep-sel{font-size:16px;padding:11px 12px}.ep-item{font-size:15px;min-height:48px}}
 
@@ -641,7 +661,15 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
   <p class="muted small-text">Aquí solo se <b>planifica</b>: ejercicios, orden, series y rango de repeticiones. Para ejecutarla, abre <b>Entrenamiento</b> y pulsa «Empezar entreno».</p>
   <div class="field" style="margin-top:16px">
    <label>Elige una rutina</label>
-   <select id="rutinaSelect"><option value="r_push">Push (empuje)</option><option value="r_pull">Pull (tirón)</option><option value="r_pierna">Pierna</option></select>
+   <div class="rutina-picker">
+    <button type="button" class="rp-sel" id="rpRutAbrir" aria-expanded="false" aria-controls="rpRutPanel">
+     <span class="rp-ico">📋</span>
+     <span class="rp-txt" id="rpRutActual">Seleccionar entrenamiento</span>
+     <span class="rp-flecha" aria-hidden="true">▼</span>
+    </button>
+    <div class="rp-panel" id="rpRutPanel" hidden=""></div>
+   </div>
+   <select id="rutinaSelect" hidden=""><option value="r_push">Push (empuje)</option><option value="r_pull">Pull (tirón)</option><option value="r_pierna">Pierna</option></select>
   </div>
   <div class="form-actions" style="display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:16px">
    <button class="btn secondary" id="nuevaRutina" type="button">+ Nueva rutina</button>
@@ -729,7 +757,18 @@ body.light .app-topbar{background:rgba(242,245,250,.96)}
 <div class="card" id="iniciarEntrenoCard">
  <h2 class="section-title">▶ Empezar entreno</h2>
  <p class="muted small-text">Carga de golpe la rutina planificada, con tus series y pesos sugeridos.</p>
- <div class="field" style="margin-top:14px"><label>Rutina a ejecutar</label><select id="rutinaSelectEntreno"><option value="r_push">Push (empuje)</option><option value="r_pull">Pull (tirón)</option><option value="r_pierna">Pierna</option></select></div>
+ <div class="field" style="margin-top:14px">
+  <label>Rutina a ejecutar</label>
+  <div class="rutina-picker">
+   <button type="button" class="rp-sel" id="rpEntAbrir" aria-expanded="false" aria-controls="rpEntPanel">
+    <span class="rp-ico">📋</span>
+    <span class="rp-txt" id="rpEntActual">Seleccionar entrenamiento</span>
+    <span class="rp-flecha" aria-hidden="true">▼</span>
+   </button>
+   <div class="rp-panel" id="rpEntPanel" hidden=""></div>
+  </div>
+  <select id="rutinaSelectEntreno" hidden=""><option value="r_push">Push (empuje)</option><option value="r_pull">Pull (tirón)</option><option value="r_pierna">Pierna</option></select>
+ </div>
  <div id="rutinaResumenEntreno" class="muted small-text"><b>Push (empuje)</b> · 5 ejercicios · 16 series · ~51 min</div>
  <div class="form-actions" style="display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px">
   <button class="btn green" id="empezarEntreno" type="button">▶ Empezar entreno</button>
@@ -3483,6 +3522,44 @@ function estaEstancado(nombre){
 }
 
 // ---------- Panel de rutina ----------
+// Selector de rutina plegable (sustituye visualmente a los <select>)
+function rpPintar(cual){
+ const sel=$(cual==='ent'?'rutinaSelectEntreno':'rutinaSelect');
+ const panel=$(cual==='ent'?'rpEntPanel':'rpRutPanel');
+ const txt=$(cual==='ent'?'rpEntActual':'rpRutActual');
+ if(!sel||!panel||!txt)return;
+ const ops=[...sel.options].filter(o=>o.value);
+ if(!ops.length){panel.innerHTML='<div class="empty">No hay rutinas.</div>';txt.textContent='Seleccionar entrenamiento';txt.classList.add('rp-vacio');return;}
+ const act=ops.find(o=>o.value===sel.value)||ops[0];
+ txt.textContent=act.textContent;
+ txt.classList.remove('rp-vacio');
+ panel.innerHTML=ops.map(o=>`<button type="button" class="rp-item" data-rp-valor="${escaparHtml(o.value)}" aria-current="${o.value===sel.value}">${escaparHtml(o.textContent)}<span class="rp-check">${o.value===sel.value?'✓':''}</span></button>`).join('');
+}
+function rpCerrar(cual){
+ const btn=$(cual==='ent'?'rpEntAbrir':'rpRutAbrir');
+ const panel=$(cual==='ent'?'rpEntPanel':'rpRutPanel');
+ if(!btn||!panel)return;
+ panel.hidden=true;btn.setAttribute('aria-expanded','false');
+}
+function rpAbrir(cual){
+ rpPintar(cual);
+ const btn=$(cual==='ent'?'rpEntAbrir':'rpRutAbrir');
+ const panel=$(cual==='ent'?'rpEntPanel':'rpRutPanel');
+ if(!btn||!panel)return;
+ const abierto=btn.getAttribute('aria-expanded')==='true';
+ rpCerrar('ent');rpCerrar('rut');
+ if(abierto)return;
+ panel.hidden=false;btn.setAttribute('aria-expanded','true');
+}
+function rpElegir(cual,valor){
+ const sel=$(cual==='ent'?'rutinaSelectEntreno':'rutinaSelect');
+ if(!sel)return;
+ sel.value=valor;
+ sel.dispatchEvent(new Event('change',{bubbles:true}));
+ rpCerrar(cual);
+}
+
+
 function pintarRutina(){
  const sel=$('rutinaSelect');
  if(!sel)return;
@@ -3494,6 +3571,8 @@ function pintarRutina(){
   selE.innerHTML=rutinas.map(r2=>`<option value="${r2.id}">${r2.nombre}</option>`).join('');
   selE.value=rutinaActiva;
  }
+
+ rpPintar('rut');rpPintar('ent');
 
  const r=rutinaPorId(rutinaActiva);
  const lista=$('listaRutina');
@@ -3835,6 +3914,19 @@ document.addEventListener('input',e=>{
  const ei=Number(row.dataset.ej),si=Number(row.dataset.set);
  const clave=e.target.classList.contains('setPeso')?'peso':e.target.classList.contains('setReps')?'reps':e.target.classList.contains('setRir')?'rir':null;
  if(clave)actualizarFilaSesion(ei,si,clave,e.target.value);
+});
+
+['ent','rut'].forEach(c=>{
+ const b=$(c==='ent'?'rpEntAbrir':'rpRutAbrir');
+ const p=$(c==='ent'?'rpEntPanel':'rpRutPanel');
+ if(b)b.addEventListener('click',()=>rpAbrir(c));
+ if(p)p.addEventListener('click',e=>{
+  const it=e.target.closest('[data-rp-valor]');
+  if(it)rpElegir(c,it.dataset.rpValor);
+ });
+});
+document.addEventListener('click',e=>{
+ if(!e.target.closest('.rutina-picker')){rpCerrar('ent');rpCerrar('rut');}
 });
 
 const selEnt=$('rutinaSelectEntreno');
